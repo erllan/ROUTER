@@ -1,0 +1,71 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body%}
+<section class="order">
+    <div class="container">
+        <h4 class="order__title">
+            Оформление заказа
+        </h4>
+        <div class="order__block">
+            <div class="order__wrap">
+                <img src="{%static 'images/order.png'%}" alt="ORDER" class="order__img">
+                <div class="quantity">
+                    <p class="order__product-text">3G модем DS Telecom DSU7</p>
+                    <div class="quantity__block">
+                        <button class="quantity__button">
+                            -
+                        </button>
+                        <a href="#" class="number__order">1</a>
+                        <button class="quantity__button">
+                            +
+                        </button>
+                    </div>
+                    <p class="price__order">
+                        2 547 ₽
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="order__block">
+            <div class="order__wrap">
+                <img src="{%static 'images/order.png'%}" alt="ORDER" class="order__img">
+                <img src="{%static 'images/sale__two.png'%}" alt="" class="sale__imgTwo sale__img-order">
+                <p class="sale__textTwo">-25%</p>
+                <div class="quantity">
+                    <p class="order__product-text">3G модем DS Telecom DSU7</p>
+                    <div class="quantity__block">
+                        <button class="quantity__button">
+                            -
+                        </button>
+                        <a href="#" class="number__order">1</a>
+                        <button class="quantity__button">
+                            +
+                        </button>
+                    </div>
+                    <p class="price__order">
+                        1910 ₽
+                    </p>
+                </div>
+            </div>
+            <div class="order__checkout">
+                <div class="order__sale">
+                    <p class="order__sale-sale">Скидка: 637 ₽</p>
+                </div>
+                <div class="total">
+                    <p class="order__total-title">
+                        Итого:
+                    </p>
+                    <p class="order__total-price">
+                        4 457 ₽
+                    </p>
+                    <div class="checkout__button">
+                        <a href="#" class="onTrash checkout">
+                            Оформить заказ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%endblock%}

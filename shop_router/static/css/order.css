@@ -1,0 +1,226 @@
+.order {
+    margin-top: 60px;
+    margin: 0 auto;
+}
+.order__title {
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 43px;
+    color: #444148;
+    text-align: center;
+    margin-bottom: 54px;
+}
+.order__block {
+}
+.order__wrap {
+    position: relative;
+    display: flex;
+}
+.order__img {
+    width: 136px;
+    height: 136px;
+}
+.order__product-text {
+    font-weight: normal;
+    font-size: 21px;
+    line-height: 26px;
+    color: #444148;
+}
+.quantity__block{
+    margin-left: 83px;
+    margin-right: 159px;
+}
+.quantity{
+    margin-left: 42px;
+    display: flex;
+    justify-content: space-between;
+    width: 850px;
+    margin-top: 60px;
+    margin-bottom: 64px;
+}
+.number__order {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: Mplus 1p;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    color: #444148;
+}
+.quantity__button {
+    font-family: Mplus 1p;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 21px;
+    color: #444148;
+    width: 27px;
+    height: 27px;
+    border: 1px solid #9D9797;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+.price__order {
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 27px;
+    text-align: right;
+    color: #444148;
+}   
+.order__checkout {
+    text-align: right;
+    margin-top: 60px;
+}
+.order__sale {
+    font-family: Mplus 1p;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    color: #444148;
+}
+.order__sale-sale {
+}
+.order__sale-price {
+}
+.total {
+}
+.order__total-title {
+    font-family: Mplus 1p;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    color: #444148;
+}
+.order__total-price {
+    font-size: 30px;
+    line-height: 37px;
+    text-align: right;
+    color: #444148;
+}
+.checkout__button {
+    margin-top: 20px;
+}
+.checkout {
+}
+@media only screen and (min-width: 768px) and (max-width: 979px){
+    .order__title{
+        margin-top: 50px;
+    }
+    .order__wrap{
+        margin-left: 10%;
+    }
+    .quantity{
+        margin-top: 0;
+        flex-direction: column;
+    }
+    .quantity__block{
+        margin-top: 25px;
+    }
+    .price__order{
+        margin-top: 30px;
+        margin-left: 20%;
+        text-align: left;
+    }
+    .order__img{
+        margin-top: 5%;
+    }
+    .order__checkout{
+        text-align: center;
+    }
+    .order__total-price{
+        text-align: center;
+    }
+    .checkout__button{
+        margin-top: 20px;
+    }
+}
+@media only screen and (min-width: 480px) and (max-width: 789px){
+    .order__title{
+        text-align-last: left;
+        margin-top: 50px;
+        font-size: 30px;
+    }
+    .order__wrap{
+        margin-left: 10%;
+    }
+    .quantity{
+        margin-top: 0;
+        flex-direction: column;
+    }
+    .quantity__block{
+        margin-top: 25px;
+        margin-left: 30%;
+        margin-right: 0;
+    }
+    .order__product-text{
+        font-size: 18px;
+    }
+    .price__order{
+        margin-top: 30px;
+        margin-left: 40%;
+        text-align: left;
+    }
+    .order__img{
+        margin-top: 0%;
+    }
+    .order__checkout{
+        text-align: center;
+    }
+    .order__total-price{
+        text-align: center;
+    }
+    .checkout__button{
+        margin-top: 20px;
+    }
+}
+@media only screen and (min-width: 320px) and (max-width: 480px){
+    .order{
+        margin-top: 50px;
+    }
+    .order__title{
+        text-align: center;
+        font-size: 24px;
+    }
+    .order__wrap{
+        flex-direction: column;
+        margin-left: 0;
+    }
+    .quantity{
+        width: 280px;
+        margin-left: 0;
+        margin-top: 0;
+        flex-direction: column;
+    }
+    .quantity__block{
+        margin-top: 25px;
+        margin-left: 30%;
+        margin-right: 0;
+    }
+    .order__product-text{
+        font-size: 18px;
+    }
+    .price__order{
+        width: 100%;
+        margin-top: 30px;
+        margin-left: 0;
+        text-align: center;
+    }
+    .order__img{
+        margin: 0 auto;
+    }
+    .order__checkout{
+        text-align: center;
+    }
+    .order__total-price{
+        text-align: center;
+    }
+    .order__checkout{
+        margin-bottom: 150px;
+    }
+    .checkout__button{
+        margin-top: 20px;
+    }
+}

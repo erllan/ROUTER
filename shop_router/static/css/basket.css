@@ -1,0 +1,36 @@
+.basket {
+    height: 62vh;
+}
+.basket__block{
+    text-align: center;
+}
+.basket__img {
+    margin-top: 146px;
+    
+}
+.basket__title {
+    margin-top: 24px;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 34px;
+    color: #444148;
+}
+.basket__text {
+    margin: 0 auto;
+    width: 380px;
+    font-family: Mplus 1p;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #444148;
+}
+@media only screen and (min-width: 320px) and (max-width: 480px){
+    .basket__title{
+        font-size: 26px;
+    }
+    .basket__text{
+        width: 300px;
+    }
+}

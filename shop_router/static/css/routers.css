@@ -1,0 +1,36 @@
+.routers {
+    margin-top: 45px;
+}
+.routers__title {
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 43px;
+    text-align: center;
+    color: #444148;
+}
+.router__block {
+    margin-top: 46px;
+}
+.router__title-block {
+    margin-left: 20px;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 37px;
+    color: #444148;
+}
+.router__blockTwo{
+    margin-top: 140px;
+}
+@media only screen and (min-width: 320px) and (max-width: 580px){
+    .routers__title{
+        font-size: 28px;
+    }
+    .router__title-block{
+        font-size: 20px;
+        margin-bottom: -40px;
+        margin-left: 0;
+    }
+    .slideBar__router{
+        margin-top: 0;
+    }
+}

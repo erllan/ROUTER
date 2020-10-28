@@ -1,0 +1,300 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body%}
+<div class="slider">
+    <div class="slider__item">
+        <div class="main__header">
+            <img class="back__fon" src="{%static 'images/back__fonTwo.png'%}" alt="">
+            <div class="header__texts">
+                <p class="title__header">Скоростной интернет для каждого</p>
+                <div class="delivery">
+                    <img src="{%static 'images/delivery.png'%}" alt="" class="delivery__logo">
+                    <p class="delivery__text">Доставка в любую точку СНГ от 500 ₽</p>
+                </div>
+            </div>
+            <img src="{%static 'images/modem.png'%}" alt="" class="modem">
+        </div>
+    </div>
+    <div class="slider__item">
+        <div class="main__header">
+            <img class="back__fon" src="{%static 'images/back__fonTwo.png'%}" alt="">
+            <div class="header__texts">
+                <p class="title__header">Скоростной интернет для каждого</p>
+                <div class="delivery">
+                    <img src="{%static 'images/delivery.png'%}" alt="" class="delivery__logo">
+                    <p class="delivery__text">Доставка в любую точку СНГ от 500 ₽</p>
+                </div>
+
+            </div>
+            <img src="{%static 'images/modem.png'%}" alt="MODEM" class="modem">
+        </div>
+    </div>
+    <div class="slider__item">
+        <div class="main__header">
+            <img class="back__fon" src="{%static 'images/back__fonTwo.png'%}" alt="">
+            <div class="header__texts">
+                <p class="title__header">Скоростной интернет для каждого</p>
+                <div class="delivery">
+                    <img src="{%static 'images/delivery.png'%}" alt="" class="delivery__logo">
+                    <p class="delivery__text">Доставка в любую точку СНГ от 500 ₽</p>
+                </div>
+            </div>
+            <img src="{%static 'images/modem.png'%}" alt="" class="modem">
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="content">
+            <div class="description ">
+                <img src="{%static 'images/profit.png'%}" alt="" class="desc__img">
+                <img class="wifiFirst" src="{%static 'images/wifi.png'%}" alt="">
+                <h1 class="desc__title">
+                    Выгодно
+                </h1>
+                <p class="desc__text">Наши цены на
+                    роутеры одни из самых низких среди
+                    всех конкурентов</p>
+            </div>
+            <div class="description ">
+                <img src="{%static 'images/router.png'%}" alt="" class="desc__img">
+                <h1 class="desc__title">
+                    Безопасно
+                </h1>
+                <p class="desc__text">Гарантия 3 месяца на любой товар. Наши товары самые надежные на рынке</p>
+            </div>
+            <div class="description ">
+                <img src="images/car .png" alt="" class="desc__img">
+                <h1 class="desc__title">
+                    Доступно
+                </h1>
+                <p class="desc__text">Доставим ваш заказ наложенным платежом в любую точку СНГ, всего 500 ₽</p>
+            </div>
+        </div>
+        <div class="shares">
+            <h2 class="title">
+                Акции
+            </h2>
+            <div class="product__block" id="product__block">
+                <div class="product">
+                    <img src="images/product__first.png" alt="" class="product__img">
+                    <img src="images/sale__first.png" alt="" class="sale__img">
+                    <p class="sale__text">-60%</p>
+                    <div class="product__desc">
+                        <p class="product__text">HUAWEI WiFi AX3 (Dual-core)</p>
+                        <p class="price__old">2 990 ₽</p>
+                        <div class="price__full">
+                            <p class="price__new">1800 ₽</p>
+                            <button class="plus">+</button>
+                        </div>
+                    </div>
+                    <a href="#popup" class="view" id="view">Быстрый просмотр</a>
+                </div>
+                <div class="product__two">
+                    <div class="productTwo">
+                        <img src="images/product__two.png" alt="" class="product__imgTwo">
+                        <img src="images/sale__two.png" alt="" class="sale__imgTwo">
+                        <p class="sale__textTwo">-25%</p>
+                        <div class="product__desc">
+                            <p class="product__text product__textTwo">HUAWEI WiFi Q2 Pro (3 Pack Hybrid)</p>
+                            <p class="price__old">1260 ₽</p>
+                            <div class="price__full price__fullTwo">
+                                <p class="price__new">900 ₽</p>
+                                <button class="plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="productTwo">
+                        <img src="images/product__three.png" alt="" class="product__imgTwo">
+                        <img src="images/sale__third.png" alt="" class="sale__imgThree">
+                        <p class="sale__textThree">-30%</p>
+                        <div class="product__desc">
+                            <p class="product__text">HUAWEI WiFi Q2 Pro (1 Base + 1 Satellite)</p>
+                            <p class="price__old">1260 ₽</p>
+                            <div class="price__full price__fullTwo">
+                                <p class="price__new">850 ₽</p>
+                                <button class="plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bestseller">
+            Хиты продаж
+        </div>
+        <div class="slideBar">
+            <div class="best__product">
+                <img src="images/ModemFirst.png" alt="" class="bestseller__img">
+                <p class="bestseller__title">HUAWEI WiFi WS5200</p>
+                <p class="bestseller__text">Гигабитный WiFi
+                    роутер стандарта
+                    AC1200 для беспроводных сетей</p>
+                <div class="bestseller__cost">
+                    <p class="bestseller__price">925 ₽</p>
+                    <button class="plus">+</button>
+                </div>
+            </div>
+            <div class="best__product">
+                <img src="images/ModemSecond.png" alt="" class="bestseller__img">
+                <p class="bestseller__title">HUAWEI WiFi AX3 (Quad-core)</p>
+                <p class="bestseller__text">Преимущественный выбор устройств с
+                    поддержкой Wi-Fi 5 ГГц</p>
+                <div class="bestseller__cost">
+                    <p class="bestseller__price">2200 ₽</p>
+                    <button class="plus">+</button>
+                </div>
+            </div>
+            <div class="best__product">
+                <img src="images/ModemThird.png" alt="" class="bestseller__img">
+                <p class="bestseller__title">HUAWEI WS318N-21</p>
+                <p class="bestseller__text">Внешние антенны с
+                    коэффициентом усиления 5 дБи
+                </p>
+                <div class="bestseller__cost">
+                    <p class="bestseller__price">1300 ₽</p>
+                    <button class="plus">+</button>
+                </div>
+            </div>
+            <div class="best__product">
+                <img src="images/modemFour.png" alt="" class="bestseller__img">
+                <p class="bestseller__title">0E8372</p>
+                <p class="bestseller__text">Гигабитный WiFi
+                    роутер стандарта
+                    AC1200 для беспроводных сетей</p>
+                <div class="bestseller__cost">
+                    <p class="bestseller__price">700 ₽</p>
+                    <button class="plus">+</button>
+                </div>
+            </div>
+            <div class="best__product">
+                <img src="images/ModemFirst.png" alt="" class="bestseller__img">
+                <p class="bestseller__title">HUAWEI WiFi WS5200</p>
+                <p class="bestseller__text">4G Wi-Fi модем, Wi-Fi 2,4 G</p>
+                <div class="bestseller__cost bestOne">
+                    <p class="bestseller__price">925 ₽</p>
+                    <button class="plus">+</button>
+                </div>
+            </div>
+            <div class="best__product">
+                <img src="images/modemSecond.png" alt="" class="bestseller__img">
+                <p class="bestseller__title">HUAWEI WiFi WS5200</p>
+                <p class="bestseller__text">Преимущественный выбор устройств с поддержкой Wi-Fi 5 ГГц</p>
+                <div class="bestseller__cost">
+                    <p class="bestseller__price">1300 ₽</p>
+                    <button class="plus">+</button>
+                </div>
+            </div>
+            <div class="best__product">
+                <img src="images/modemThird.png" alt="" class="bestseller__img">
+                <p class="bestseller__title">HUAWEI WiFi WS5200</p>
+                <p class="bestseller__text">4G Wi-Fi модем, Wi-Fi 2,4 G</p>
+                <div class="bestseller__cost bestOne">
+                    <p class="bestseller__price ">700 ₽</p>
+                    <button class="plus">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="popup" class="popup">
+    <a href="#view" class="popup__area"></a>
+    <div class="popup__body">
+        <div class="popup__content">
+            <div class="popup__title">Быстрый просмотр</div>
+            <div class="cancel__block">
+                <a href="#view" class="cancel__link">
+                    <img src="images/cancel.png" alt="CANCEL" class="cancel__img">
+                </a>
+            </div>
+            <div class="popup__block">
+                <div class="popup__slider">
+                    <div class="popup__sidebar">
+                        <img src="images/view.png" alt="" class="popup__img">
+                        <div class="slide__popup">
+                            <div class="slide__popup-block">
+                                <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
+                            </div>
+                            <div class="slide__popup-block">
+                                <img src="images/slidePopupTwo.png" alt="" class="slide__popup-img">
+                            </div>
+                            <div class="slide__popup-block">
+                                <img src="images/slidePopupThree.png" alt="" class="slide__popup-img">
+                            </div>
+                            <div class="slide__popup-block">
+                                <img src="images/slidePopupFour.png" alt="" class="slide__popup-img">
+                            </div>
+                            <div class="slide__popup-block">
+                                <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
+                            </div>
+                            <div class="slide__popup-block">
+                                <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
+                            </div>
+                            <div class="slide__popup-block">
+                                <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <p class="popup__feature">HUAWEI WiFi WS5200</p>
+                        <p class=" popup__text-modem">Преимущественный выбор устройств с поддержкой Wi-Fi 5 ГГц
+                        </p>
+                        <p class="feature__title">
+                            Основные характеристики
+                        </p>
+                        <div class="featue__block">
+                            <div class="feature__feature">
+                                <p class="feature__text">Размер ....................................</p>
+                                <p class="about__feature">205 мм x 120 мм x 36,8 мм</p>
+                            </div>
+                            <div class="feature__feature">
+                                <p class="feature__text">Интерфейсы .................................</p>
+                                <p class="about__feature">WAN: Один порт Ethernet 10 / 100 / 1 000 Мбит/с
+                                    LAN: Четыре порта Ethernet 10 / 100 / 1 000 Мбит/с</p>
+                            </div>
+                            <div class="feature__feature">
+                                <p class="feature__text">Безопасность .................................</p>
+                                <p class="about__feature">Anti-brute force algorithms,
+                                    WPA-PSK / WPA2-PSK Wi-Fi encryption, firewall, DMZ, PAP /
+                                    CHAP, DoS attack protection</p>
+                            </div>
+                            <div class="avail__feature">
+                                <div class="avail">
+                                    <div class="avail__img"></div>
+                                    <img src="images/PolygonFeature.png" alt="" class="avail__imgPolygon">
+                                </div>
+                                <div class="stock__block">
+                                    <p class="stock">
+                                        В наличии:
+                                    </p>
+                                    <p class="stock__colour">
+                                        белый
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="price__feature">
+                                <p class="price__feature-title">
+                                    Цена:
+                                </p>
+                                <p class="price__feature-cost">
+                                    2 990 ₽
+                                </p>
+                                <div class="on__trash">
+                                    <a href="#" class="onTrash">
+                                        Добавить в корзину
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="more">
+                <a href="#" class="more__info">Больше информации о товаре</a>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

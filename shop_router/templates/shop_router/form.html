@@ -1,0 +1,51 @@
+{%extends 'base.html'%}
+{%block body%}
+<div class="form">
+    <div class="container container__form">
+        <h4 class="order__title form__title-text">
+            Оформление заказа
+        </h4>
+        <div class="form__block">
+            <div class="form__wrap">
+                <div class="form__label">
+                    <p class="form__title">ФИО:</p>
+                    <input type="text" class="form__input" placeholder="Антон Турдубаев Константинович">
+                </div>
+                <div class="form__label">
+                    <p class="form__title">Телефон:</p>
+                    <div class="form__input-country">
+                        <input type="number" class="form__input" placeholder="+ 380 (**) *** - ** - **">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__wrap form__wrap-two">
+                <div class="form__label">
+                    <p class="form__title">Электронная почта:</p>
+                    <input type="text" class="form__input" placeholder="Antonedkonts@gmail.com">
+                </div>
+                <div class="form__label">
+                    <p class="form__title">Город доставки:</p>
+                    <input type="text" class="form__input" placeholder="Украина">
+                </div>
+            </div>
+        </div>
+        <div class="comment">
+            <p class="comment__title">
+                Комментарий к заказу:
+            </p>
+            <input type="text" class="comment__form" placeholder="Хотел заказать у вас роутер и модем">
+        </div>
+        <div class="consent" onclick="consent()">
+            <img src="images/check__mark-block.png" alt="" class="check__mark">
+            <img src="images/tick.png" alt="" class="tick" id="tick">
+            <p class="consent__text">Я соглашаюсь с политикой конфиденциальности</p>
+        </div>
+        <div class="checkout__button form__link">
+            <a href="#" class="onTrash checkout ">
+                Оставить заявку
+            </a>
+        </div>
+    </div>
+</div>
+{%endblock%}
