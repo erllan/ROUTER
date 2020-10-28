@@ -30,3 +30,9 @@ class ProductGetCreate(View):
             add = Product(photo='/album/' + filename, name=name, description=desc)
             add.save()
             return HttpResponse('вы добавили продукт')
+
+
+def delete(request, id_object):
+    product = Product.objects.get(id=id_object)
+    product.delete()
+    return HttpResponse('удалено')

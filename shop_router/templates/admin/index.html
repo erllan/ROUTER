@@ -3,22 +3,25 @@
 {%block body%}
 <h1>Admin Page</h1>
 <hr>
+<div class="contener">
 <div>
-<a href="{%url 'addProduct'%}">добавить продукт</a>
-<a href="">все продукты</a>
+    <div><a href="{%url 'addProduct'%}">добавить продукт</a></div>
+     <div><a href="">все продукты</a></div>
 </div>
-<!--{%if products%}-->
-<!--{%for product in products%}-->
-<!--<div class="best__product">-->
-<!--    <img src="{{product.photo.url}}" alt="" class="bestseller__img">-->
-<!--    <p class="bestseller__title">{{product.name}}</p>-->
-<!--    <p class="bestseller__text">{{product.description}}</p>-->
-<!--    <div class="bestseller__cost">-->
-<!--        <p class="bestseller__price">2200 ₽</p>-->
-<!--        <button class="plus">+</button>-->
-<!--    </div>-->
-<!--</div>-->
-<!--{%endfor%}-->
-<!--{%endif%}-->
-<!--{%endblock%}-->
+{%if products%}
+{%for product in products%}
+<div class="best__product">
+    <img src="{{product.photo.url}}" alt="" class="bestseller__img">
+    <p class="bestseller__title">{{product.name}}</p>
+    <p class="bestseller__text">{{product.description}}</p>
+    <div class="bestseller__cost">
+        <p class="bestseller__price">2200 ₽</p>
+        <a href="{%url 'delete' product.id%}"><button class="plus">удалить</button></a>
+    </div>
+</div>
+    {%endfor%}
+{%endif%}
+    </div>
+
+{%endblock%}
 
