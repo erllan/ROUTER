@@ -10,10 +10,10 @@ def index(request):
     return render(request, 'admin/index.html')
 
 
-def allProduct(requset):
+def allProduct(request):
     products = Product.objects.all()
     categories = Category.objects.all()
-    return render(requset, 'admin/Product.html', {'products': products, 'categories': categories})
+    return render(request, 'admin/Product.html', {'products': products, 'categories': categories})
 
 
 def productForm(request):
@@ -39,6 +39,12 @@ def deleteBrand(request, id_object):
     return HttpResponse('удалено')
 
 
+def category_set(request, id_object):
+    category = Category.objects.get(id=id_object)
+    products = category.product_set.all()
+    return render(request, 'admin/category_set.html', {'products': products})
+
+
 class BrandListCreate(View):
     """создать бренд POST,получить все бренды GET"""
 
@@ -61,7 +67,7 @@ class ProductDeleteCreate(View):
         desc = request.POST['description']
         photo = request.FILES['photo']
         price = request.POST['price']
-        category = Category.objects.filter(id__in=request.POST['category'])
+        category = Category.objects.filter(pk__in=request.POST.getlist('category'))
         brand = Brand.objects.get(id=request.POST['brand'])
         if photo:
             myfile = request.FILES['photo']
@@ -70,8 +76,7 @@ class ProductDeleteCreate(View):
             product = Product.objects.create(photo='/album/' + filename, title=name, description=desc, price=price,
                                              brand=brand)
             product.category.add(*category)
-
-            return HttpResponse('вы добавили продукт')
+            return HttpResponse('создано')
 
     def get(self, request, id_object):
         product = Product.objects.get(id=id_object)
@@ -98,7 +103,7 @@ class CreateDeleteCategory(View):
 class DetailProductAndCreateAlbum(View):
     def get(self, request, id_object):
         product = Product.objects.get(id=id_object)
-        return render(request, 'admin/productDetail.html', {'product': product})
+        return render(request, 'admin/detailProduct.html', {'product': product})
 
     def post(self, request, id_object):
         if request.method == "POST":
@@ -108,5 +113,5 @@ class DetailProductAndCreateAlbum(View):
                 myfile = album
                 fs = FileSystemStorage(location='media/album')
                 filename = fs.save(myfile.name, myfile)
-                newAlbum = Product.objects.create(photo='/album/' + filename, to_product=product)
-                return HttpResponse(reverse('product', args=product.id))
+                newAlbum = Album.objects.create(photo='/album/' + filename, to_product=product)
+                return HttpResponse('создано')

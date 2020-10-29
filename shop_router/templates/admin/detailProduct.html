@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
 
-</body>
-</html>
+<div class="order__block">
+    <div class="order__wrap">
+        <img src="{{product.photo.url}}" alt="ORDER" class="order__img" height="150" width = '150'>
+
+        <div class="quantity">
+            <p class="order__product-text">{{product.title}}</p>
+
+            <p class="price__order">
+                {{product.price}}
+            </p>
+        </div>
+    </div>
+</div>
+<form action="{%url 'detailProduct' product.id %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <input type="file" name="album">
+    <input type="submit">
+</form>
+{%for album in product.album_set.all%}
+<img src="{{album.photo.url}}" alt="" height="150" width = '150'>
+{%endfor%}
+{%endblock%}

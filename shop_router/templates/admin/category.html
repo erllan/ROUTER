@@ -2,19 +2,19 @@
 {%load static%}
 {%block body%}
 <div class="container-fluid">
-    <h1>Категории</h1>
-    <form action="{%url 'createCategory'%}" method="post">
+    <h1 class="text-center">Категории</h1>
+    <form action="{%url 'createCategory'%}" method="post" class="text-right">
         {% csrf_token %}
-        <input type="text" name='category'>
+        <input type="text" name='category' placeholder="создать">
         <input type="submit">
     </form>
     <hr>
     <div>
         {%if categories%}
         {%for category in categories%}
-        <h4>{{category.category}}</h4>
+        <a href="{%url 'category_set' category.id%}"><h4>{{category.category}}</h4></a>
         <a href="{%url 'CategoryDelete' category.id%}">
-            <button>удалить</button>
+            удалить
         </a>
 
         {%endfor%}

@@ -14,4 +14,5 @@ urlpatterns = [
     path('brand/', adminView.BrandListCreate.as_view(), name='brand'),
     path('brand/<int:id_object>', adminView.deleteBrand, name='deleteBrand'),
     path('product/<int:id_object>', adminView.DetailProductAndCreateAlbum.as_view(), name='detailProduct'),
+    path('category_set/<int:id_object>', adminView.category_set, name='category_set'),
 ]

@@ -4,7 +4,8 @@
 {%if products%}
 {%for product in products%}
 <div class="container-fluid">
-    <img src="{{product.photo.url}}" alt="" class="bestseller__img">
+    <a href="{%url 'detailProduct' product.id%}">
+    <img src="{{product.photo.url}}" alt="" class="bestseller__img" height="150" width = '150'>
     <p class="bestseller__title">{{product.title}}</p>
     <p class="bestseller__text">{{product.description}}</p>
     <div class="bestseller__cost">
@@ -13,6 +14,7 @@
             <button class="plus">удалить</button>
         </a>
     </div>
+</a>
 </div>
 {%endfor%}
 {%else%}

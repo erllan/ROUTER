@@ -1,18 +1,21 @@
 {%extends 'base_admin.html'%}
 {%load static%}
 {%block body%}
+<div class="text-center"><h1>Создать продукт</h1></div>
+<hr>
+
 <div class="container">
     <div class="form-group">
         <form action="{%url 'add'%}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="text" name="title" placeholder="названия" class="form-control">
+            <input  type="text" name="title" placeholder="названия" class="form-control" required>
             <br>
             <textarea name="description" placeholder="описания..." class="form-control"></textarea>
             <br>
             <div class="row">
                 <div class="col">
-                    <select name='brand' class="custom-select" id="inputGroupSelect01">
-                        <option selected>выберите бернд...</option>
+                    <select name='brand' class="custom-select" id="inputGroupSelect01" required>
+
                         {%if brands%}
                         {%for brand in brands%}
                         <option value="{{brand.id}}">{{brand.brand_name}}</option>
@@ -22,8 +25,7 @@
                     </select>
                 </div>
                 <div class="col">
-                    <select name='category' class="custom-select" multiple>
-                        <option selected>Катигория...</option>
+                    <select name='category' class="custom-select" multiple required>
                         {%if categories%}
                         {%for category in categories%}
                         <option value="{{category.id}}">{{category.category}}</option>
@@ -35,10 +37,10 @@
             <br>
 
 
-            <input type="number" name="price" placeholder="цена" class="form-control">
+            <input type="number" name="price" placeholder="цена" class="form-control" required>
             <br>
             <div class="custom-file">
-                <input type="file" name="photo" class="custom-file-input" id="inputGroupFile01">
+                <input type="file" name="photo" class="custom-file-input" id="inputGroupFile01" required>
                 <label class="custom-file-label" for="inputGroupFile01">фото</label>
             </div>
             <br>
