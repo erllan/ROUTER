@@ -1,0 +1,50 @@
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
+<div class="container">
+    <div class="form-group">
+        <form action="{%url 'add'%}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="названия" class="form-control">
+            <br>
+            <textarea name="description" placeholder="описания..." class="form-control"></textarea>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <select name='brand' class="custom-select" id="inputGroupSelect01">
+                        <option selected>выберите бернд...</option>
+                        {%if brands%}
+                        {%for brand in brands%}
+                        <option value="{{brand.id}}">{{brand.brand_name}}</option>
+
+                        {%endfor%}
+                        {%endif%}
+                    </select>
+                </div>
+                <div class="col">
+                    <select name='category' class="custom-select" multiple>
+                        <option selected>Катигория...</option>
+                        {%if categories%}
+                        {%for category in categories%}
+                        <option value="{{category.id}}">{{category.category}}</option>
+                        {%endfor%}
+                        {%endif%}
+                    </select>
+                </div>
+            </div>
+            <br>
+
+
+            <input type="number" name="price" placeholder="цена" class="form-control">
+            <br>
+            <div class="custom-file">
+                <input type="file" name="photo" class="custom-file-input" id="inputGroupFile01">
+                <label class="custom-file-label" for="inputGroupFile01">фото</label>
+            </div>
+            <br>
+            <br>
+            <input type="submit" class="form-control">
+        </form>
+    </div>
+</div>
+{%endblock%}
