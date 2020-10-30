@@ -69,12 +69,24 @@ class ProductDeleteCreate(View):
         price = request.POST['price']
         category = Category.objects.filter(pk__in=request.POST.getlist('category'))
         brand = Brand.objects.get(id=request.POST['brand'])
+        size = request.POST['size']
+        safety = request.POST['safety']
+        interface = request.POST['interface']
+        colors = request.POST['colors']
         if photo:
             myfile = request.FILES['photo']
             fs = FileSystemStorage(location='media/album')
             filename = fs.save(myfile.name, myfile)
-            product = Product.objects.create(photo='/album/' + filename, title=name, description=desc, price=price,
-                                             brand=brand)
+            product = Product.objects.create(photo='/album/' + filename,
+                                             title=name,
+                                             description=desc,
+                                             price=price,
+                                             brand=brand,
+                                             color=colors,
+                                             size=size,
+                                             safety=safety,
+                                             interface=interface
+                                             )
             product.category.add(*category)
             return HttpResponse('создано')
 
@@ -101,6 +113,7 @@ class CreateDeleteCategory(View):
 
 
 class DetailProductAndCreateAlbum(View):
+    """Деталь продукта [GET],создать албьом [POST]"""
     def get(self, request, id_object):
         product = Product.objects.get(id=id_object)
         return render(request, 'admin/detailProduct.html', {'product': product})

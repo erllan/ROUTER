@@ -22,6 +22,10 @@ class Product(models.Model):
     photo = models.ImageField(verbose_name='Главное фото', upload_to='album/')
     category = models.ManyToManyField(Category, verbose_name='катигория')
     price = models.IntegerField(null=True)
+    color = models.CharField(max_length=255, null=True)
+    size = models.CharField(max_length=255, null=True)
+    interface = models.CharField(max_length=255, null=True)
+    safety = models.CharField(max_length=255, null=True)
 
     def __str__(self):
         return self.title

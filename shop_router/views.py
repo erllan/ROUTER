@@ -1,12 +1,15 @@
 from django.shortcuts import render
+from .models import *
+from django.http import HttpResponse
 
 
 def index(request):
-    return render(request, 'shop_router/index.html')
+    products = Product.objects.all()
+    return render(request, 'shop_router/index.html', {'products': products})
 
 
-def basket(requser):
-    return render(requser, 'shop_router/basket.html')
+def basket(request):
+    return render(request, 'shop_router/basket.html')
 
 
 def form(request):
@@ -14,11 +17,25 @@ def form(request):
 
 
 def order(request):
-    return render(request, 'shop_router/order.html')
+    a = request.COOKIES.get('Order')
+    if a:
+        order_product = Product.objects.filter(id__in=int(a))
+        return render(request, 'shop_router/order.html', {'product': order_product})
+    return render(request, 'shop_router/basket.html')
 
 
-def product(request):
-    return render(request, 'shop_router/product.html')
+def addProductToBascet(request, id_object):
+    if request.COOKIES.get('Order'):
+        response = request.COOKIES['Order']
+    else:
+        response = HttpResponse('ваш заказ добавлен в карзину')
+        response.set_cookie('Order', id_object, max_age=15)
+    return response
+
+
+def product(request, id_obj):
+    prod = Product.objects.get(id=id_obj)
+    return render(request, 'shop_router/product.html', {'product': prod})
 
 
 def routers(request):

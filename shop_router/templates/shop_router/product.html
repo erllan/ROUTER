@@ -5,65 +5,46 @@
     <div class="popup__block">
         <div class="popup__slider">
             <div class="popup__sidebar">
-                <img src="images/view.png" alt="" class="popup__img">
+                <img src="{{product.photo.url}}" alt="" class="popup__img">
                 <div class="slide__popup">
+                    {%for album in product.album_set.all%}
                     <div class="slide__popup-block">
-                        <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
+                        <img src="{{album.photo.url}}" alt="" class="slide__popup-img">
                     </div>
-                    <div class="slide__popup-block">
-                        <img src="images/slidePopupTwo.png" alt="" class="slide__popup-img">
-                    </div>
-                    <div class="slide__popup-block">
-                        <img src="images/slidePopupThree.png" alt="" class="slide__popup-img">
-                    </div>
-                    <div class="slide__popup-block">
-                        <img src="images/slidePopupFour.png" alt="" class="slide__popup-img">
-                    </div>
-                    <div class="slide__popup-block">
-                        <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
-                    </div>
-                    <div class="slide__popup-block">
-                        <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
-                    </div>
-                    <div class="slide__popup-block">
-                        <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
-                    </div>
+                    {%endfor%}
 
                 </div>
             </div>
             <div class="feature">
-                <p class="popup__feature">HUAWEI WiFi WS5200</p>
-                <p class=" popup__text-modem">Преимущественный выбор устройств с поддержкой Wi-Fi 5 ГГц</p>
+                <p class="popup__feature">{{product.title}}</p>
+                <p class=" popup__text-modem">{{product.description}}</p>
                 <p class="feature__title">
                     Основные характеристики
                 </p>
                 <div class="featue__block">
                     <div class="feature__feature">
                         <p class="feature__text">Размер ....................................</p>
-                        <p class="about__feature">205 мм x 120 мм x 36,8 мм</p>
+                        <p class="about__feature">{{product.size}}</p>
                     </div>
                     <div class="feature__feature">
                         <p class="feature__text">Интерфейсы .................................</p>
-                        <p class="about__feature">WAN: Один порт Ethernet 10 / 100 / 1 000 Мбит/с
-                            LAN: Четыре порта Ethernet 10 / 100 / 1 000 Мбит/с</p>
+                        <p class="about__feature">{{product.interface}}</p>
                     </div>
                     <div class="feature__feature">
                         <p class="feature__text">Безопасность .................................</p>
-                        <p class="about__feature">Anti-brute force algorithms,
-                            WPA-PSK / WPA2-PSK Wi-Fi encryption, firewall, DMZ, PAP /
-                            CHAP, DoS attack protection</p>
+                        <p class="about__feature">{{product.safety}}</p>
                     </div>
                     <div class="avail__feature">
                         <div class="avail">
                             <div class="avail__img"></div>
-                            <img src="images/PolygonFeature.png" alt="" class="avail__imgPolygon">
+                            <img src="{%static 'images/PolygonFeature.png'%}" alt="" class="avail__imgPolygon">
                         </div>
                         <div class="stock__block">
                             <p class="stock">
                                 В наличии:
                             </p>
                             <p class="stock__colour">
-                                белый
+                                {{product.color}}
                             </p>
                         </div>
                     </div>
@@ -72,7 +53,7 @@
                             Цена:
                         </p>
                         <p class="price__feature-cost">
-                            2 990 ₽
+                            {{product.price}}₽
                         </p>
                         <div class="on__trash">
                             <a href="#" class="onTrash">
@@ -90,7 +71,7 @@
         <p class="router__title-block">Рекомендуемые товары</p>
         <div class="slideBar ">
             <div class="best__product">
-                <img src="images/ModemFirst.png" alt="" class="bestseller__img">
+                <img src="{%static 'images/ModemFirst.png'%}" alt="" class="bestseller__img">
                 <p class="product__price">
                     3 090 ₽
                 </p>
