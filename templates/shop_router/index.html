@@ -120,28 +120,31 @@
                 </div>
             </div>
         </div>
+        {% if categories%}
+        {%for category in categories%}
         <div class="bestseller">
-            Хиты продаж
+            {{category.category}}
         </div>
         <div class="slideBar">
-            {%if products%}
-            {%for product in products %}
-                <div class="best__product">
-                    <img src="{{product.photo.url}}" alt="" class="bestseller__img">
-                    <a href="{%url 'product' product.id %}"><p class="bestseller__title">{{product.title}}</p></a>
-                    <p class="bestseller__text">{{product.description}}
-                    </p>
-                    <div class="bestseller__cost">
-                        <p class="bestseller__price">{{product.price}} ₽</p>
-                        <a href="{%url 'addProductToBascet' product.id %}"><button class="plus">+</button></a>
-                    </div>
+        {%for product in category.product_set.all %}
+            <div class="best__product">
+                <img src="{{product.photo.url}}" alt="" class="bestseller__img">
+                <a href="{%url 'product' product.id %}"><p class="bestseller__title">{{product.title}}</p></a>
+                <p class="bestseller__text">{{product.description}}
+                </p>
+                <div class="bestseller__cost">
+                    <p class="bestseller__price">{{product.price}} ₽</p>
+                    <a href="{%url 'addProductToBascet' product.id %}">
+                        <button class="plus">+</button>
+                    </a>
                 </div>
-            </a>
-            {%endfor%}
-            {%endif%}
+            </div>
 
-
+        {%endfor%}
         </div>
+
+        {%endfor%}
+        {%endif%}
 
     </div>
 </div>

@@ -1,13 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.files.storage import FileSystemStorage
 from .models import Product, Category, Album, Brand
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
+
+
+def login_admin(request):
+    error = ''
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('admin.index'))
+        else:
+            error = 'неправильный логин или пароль'
+    return render(request, 'registration/login.html', {'error': error})
 
 
 def index(request):
-    return render(request, 'admin/index.html')
+    if request.user.is_authenticated:
+        return render(request, 'admin/index.html')
+    else:
+        return HttpResponseRedirect(reverse('login'))
+
+
+def admin_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
 
 
 def allProduct(request):
@@ -114,6 +137,7 @@ class CreateDeleteCategory(View):
 
 class DetailProductAndCreateAlbum(View):
     """Деталь продукта [GET],создать албьом [POST]"""
+
     def get(self, request, id_object):
         product = Product.objects.get(id=id_object)
         return render(request, 'admin/detailProduct.html', {'product': product})

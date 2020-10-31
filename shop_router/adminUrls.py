@@ -3,6 +3,8 @@ from . import adminView
 
 urlpatterns = [
     path('', adminView.index, name='admin.index'),
+    path('login/', adminView.login_admin, name='login'),
+    path('logout/', adminView.admin_logout, name='logout'),
     path('add/', adminView.ProductDeleteCreate.as_view(), name='add'),
     path('delete/<int:id_object>', adminView.ProductDeleteCreate.as_view(), name='delete'),
     path('product/', adminView.allProduct, name='products'),

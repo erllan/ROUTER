@@ -4,8 +4,8 @@ from django.http import HttpResponse
 
 
 def index(request):
-    products = Product.objects.all()
-    return render(request, 'shop_router/index.html', {'products': products})
+    category = Category.objects.all()
+    return render(request, 'shop_router/index.html', {'categories': category})
 
 
 def basket(request):
@@ -19,17 +19,23 @@ def form(request):
 def order(request):
     a = request.COOKIES.get('Order')
     if a:
-        order_product = Product.objects.filter(id__in=int(a))
+        b = a.split(',')
+        result = [int(item) for item in b]
+        print(result)
+        order_product = Product.objects.filter(id__in=result)
         return render(request, 'shop_router/order.html', {'product': order_product})
     return render(request, 'shop_router/basket.html')
 
 
 def addProductToBascet(request, id_object):
     if request.COOKIES.get('Order'):
-        response = request.COOKIES['Order']
+        response = HttpResponse('ваш заказ')
+        value = request.COOKIES.get('Order')
+        response.set_cookie('Order', value + ',' + str(id_object), max_age=60)
+
     else:
         response = HttpResponse('ваш заказ добавлен в карзину')
-        response.set_cookie('Order', id_object, max_age=15)
+        response.set_cookie('Order', id_object, max_age=60)
     return response
 
 
