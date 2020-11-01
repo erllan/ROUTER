@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime
 
 class Category(models.Model):
     category = models.CharField(verbose_name='катигория', max_length=255)
@@ -26,6 +26,7 @@ class Product(models.Model):
     size = models.CharField(max_length=255, null=True)
     interface = models.CharField(max_length=255, null=True)
     safety = models.CharField(max_length=255, null=True)
+    date = models.DateTimeField(verbose_name='Дата', default=datetime.now)
 
     def __str__(self):
         return self.title
@@ -46,7 +47,7 @@ class Customer(models.Model):
     Email = models.EmailField(verbose_name='Почта', max_length=255)
     delivery_city = models.CharField(verbose_name='Город доставки', max_length=255)
     Comment = models.CharField(verbose_name='Комментарий к заказу', max_length=255)
-    order_date = models.DateTimeField(verbose_name='Дата и время заказа', auto_now_add=True)
+    order_date = models.DateTimeField(verbose_name='Дата и время заказа', default=datetime.now)
 
     def __str__(self):
         return self.full_name

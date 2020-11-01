@@ -1,6 +1,6 @@
 {%extends 'base.html'%}
 {%block body%}
-<div class="form">
+<form class="form" action="{%url 'form' %}" method="post">{% csrf_token %}
     <div class="container container__form">
         <h4 class="order__title form__title-text">
             Оформление заказа
@@ -9,12 +9,12 @@
             <div class="form__wrap">
                 <div class="form__label">
                     <p class="form__title">ФИО:</p>
-                    <input type="text" class="form__input" placeholder="Антон Турдубаев Константинович">
+                    <input type="text" class="form__input" placeholder="Антон Турдубаев Константинович" name="full_name">
                 </div>
                 <div class="form__label">
                     <p class="form__title">Телефон:</p>
                     <div class="form__input-country">
-                        <input type="number" class="form__input" placeholder="+ 380 (**) *** - ** - **">
+                        <input type="number" class="form__input" placeholder="+ 380 (**) *** - ** - **" name="phone">
                     </div>
                 </div>
             </div>
@@ -22,11 +22,11 @@
             <div class="form__wrap form__wrap-two">
                 <div class="form__label">
                     <p class="form__title">Электронная почта:</p>
-                    <input type="text" class="form__input" placeholder="Antonedkonts@gmail.com">
+                    <input type="text" class="form__input" placeholder="Antonedkonts@gmail.com" name="email">
                 </div>
                 <div class="form__label">
                     <p class="form__title">Город доставки:</p>
-                    <input type="text" class="form__input" placeholder="Украина">
+                    <input type="text" class="form__input" placeholder="Украина" name="city">
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <p class="comment__title">
                 Комментарий к заказу:
             </p>
-            <input type="text" class="comment__form" placeholder="Хотел заказать у вас роутер и модем">
+            <input type="text" name = "comment" class="comment__form" placeholder="Хотел заказать у вас роутер и модем">
         </div>
         <div class="consent" onclick="consent()">
             <img src="images/check__mark-block.png" alt="" class="check__mark">
@@ -42,10 +42,10 @@
             <p class="consent__text">Я соглашаюсь с политикой конфиденциальности</p>
         </div>
         <div class="checkout__button form__link">
-            <a href="#" class="onTrash checkout ">
+            <button class="onTrash checkout ">
                 Оставить заявку
-            </a>
+            </button>
         </div>
     </div>
-</div>
+</form>
 {%endblock%}

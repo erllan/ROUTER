@@ -10,4 +10,5 @@ urlpatterns = [
     path('routers/', views.routers, name='routers'),
     path('about/', views.about, name='about'),
     path('addProductToBascet/<int:id_object>', views.addProductToBascet, name='addProductToBascet'),
+    path('addCount/<int:id_object>', views.addCountOrder, name='addCount'),
 ]

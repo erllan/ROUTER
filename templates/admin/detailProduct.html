@@ -14,6 +14,7 @@
             </p>
         </div>
     </div>
+    {{product.date}}
 </div>
 <form action="{%url 'detailProduct' product.id %}" enctype="multipart/form-data" method="post">
     {% csrf_token %}

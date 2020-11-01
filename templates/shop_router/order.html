@@ -15,12 +15,12 @@
                 <img src="{%static 'images/sale__two.png'%}" alt="" class="sale__imgTwo sale__img-order">
                 <p class="sale__textTwo">-25%</p>
                 <div class="quantity">
-                    <p class="order__product-text">{{ord.title}}</p>
+                    <p class="order__product-text">{{prod.title}}</p>
                     <div class="quantity__block">
                         <button class="quantity__button">
                             -
                         </button>
-                        <a href="#" class="number__order">1</a>
+                        <a href="{% url 'addCount' prod.id%}" class="number__order">1</a>
                         <button class="quantity__button">
                             +
                         </button>

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.files.storage import FileSystemStorage
-from .models import Product, Category, Album, Brand
+from .models import Product, Category, Album, Brand, Customer
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 
 
 def login_admin(request):
@@ -23,7 +23,8 @@ def login_admin(request):
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, 'admin/index.html')
+        test = Customer.objects.all()
+        return render(request, 'admin/index.html', {'test': test})
     else:
         return HttpResponseRedirect(reverse('login'))
 
