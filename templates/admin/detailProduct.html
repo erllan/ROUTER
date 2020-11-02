@@ -1,27 +1,40 @@
 {%extends 'base_admin.html'%}
 {%load static%}
 {%block body%}
-
-<div class="order__block">
-    <div class="order__wrap">
-        <img src="{{product.photo.url}}" alt="ORDER" class="order__img" height="150" width = '150'>
-
-        <div class="quantity">
-            <p class="order__product-text">{{product.title}}</p>
-
-            <p class="price__order">
-                {{product.price}}
-            </p>
-        </div>
+<div class="container-fluid">
+    <div class="order__block">
+        <img src="{{product.photo.url}}" alt="ORDER" class="order__img" height="150" width='150'>
+        <ul>
+            <li>{{product.title}}</li>
+            <li>бренд: {{product.brand}}</li>
+            <li> цена: {{product.price}}</li>
+            <li> акция: {{product.sale}}</li>
+            <li> цена акция: {{product.get_sale}}</li>
+            <li>дата : {{product.date}}</li>
+            <li>цвета : {{product.color}}</li>
+            <li>размер : {{product.size}}</li>
+            <li>интерфейс : {{product.interface}}</li>
+            <li>безапасность : {{product.safety}}</li>
+            <li>дата : {{product.date}}</li>
+            <li>описание :<p>{{product.description}}</p></li>
+        </ul>
+        <a href="{%url 'delete' product.id%}">
+            <button class="plus">удалить</button>
+        </a>
     </div>
-    {{product.date}}
+    <form action="{%url 'addSale' product.id%}" method="post">{% csrf_token%}<input type="number" name="sale">
+        <input type="submit">
+    </form>
+    <hr>
+    <h3 class="text-center">Галерея</h3>
+    <form action="{%url 'detailProduct' product.id %}" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <input type="file" name="album">
+        <input type="submit">
+    </form>
+    {%for album in product.album_set.all%}
+    <img src="{{album.photo.url}}" alt="" height="150" width='150'>
+
+    {%endfor%}
 </div>
-<form action="{%url 'detailProduct' product.id %}" enctype="multipart/form-data" method="post">
-    {% csrf_token %}
-    <input type="file" name="album">
-    <input type="submit">
-</form>
-{%for album in product.album_set.all%}
-<img src="{{album.photo.url}}" alt="" height="150" width = '150'>
-{%endfor%}
 {%endblock%}

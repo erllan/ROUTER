@@ -1,0 +1,28 @@
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
+{%if customers%}
+<h3 class="text-center" >все заказы</h3>
+<div class="container-fluid">
+    {%for customer in customers%}
+    <div class="customer">
+        <div class="container-fluid">
+            <a href="{%url 'order' customer.id%}">
+                <h3>дата заказа:{{customer.order_date}}</h3>
+                <h3>Имя:{{customer}}</h3>
+                <h3>email:{{customer.Email}}</h3>
+
+            </a>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+{%endif%}
+<style>
+    .customer{
+    background-color: lightsteelblue;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+</style>
+{%endblock%}

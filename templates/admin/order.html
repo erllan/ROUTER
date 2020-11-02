@@ -1,5 +1,45 @@
 {%extends 'base_admin.html'%}
 {%load static%}
 {%block body%}
-
+{%if customer%}
+<div class="container-fluid">
+    <div class="customer">
+        <h4>Дата заказа:{{customer.order_date}}</h4>
+        <h4>Имя:{{customer}}</h4>
+        <h4>email:{{customer.Email}}</h4>
+        <h4>Коментария:</h4>
+        <p>{{customer.Comment}}</p>
+    </div>
+    <div class='orders'>
+        <h3 class="text-center" >Заказы</h3>
+        {%for order in customer.order_set.all%}
+        <a href="{%url 'detailProduct' order.product.id%}">
+        <div class="order">
+        <div class="order__wrap">
+            <div class="row">
+                <img src="{{order.product.photo.url}}" alt="ORDER" class="order__img" height="150" width='150'>
+                <div class="quantity">
+                    <p class="order__product-text">{{order.product.title}}</p>
+                    <div class="quantity__block">
+                        количество: {{order.order_quantities}}
+                    </div>
+                    <p class="price__order">
+                        цена: {{order.product.price}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        </a>
+        <hr>
+        <hr>
+        {%endfor%}
+        {%endif%}
+    </div>
+</div>
+<style>
+    .order{
+    background-color: lightsteelblue;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);}
+</style>
 {%endblock%}

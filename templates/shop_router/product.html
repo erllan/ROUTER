@@ -56,7 +56,7 @@
                             {{product.price}}₽
                         </p>
                         <div class="on__trash">
-                            <a href="#" class="onTrash">
+                            <a href="{%url 'addProductToBascet' product.id %}" class="onTrash">
                                 Добавить в корзину
                             </a>
                         </div>
@@ -70,69 +70,19 @@
     <div class="recommend">
         <p class="router__title-block">Рекомендуемые товары</p>
         <div class="slideBar ">
+            {%for rec in recoment%}
+            <a href="{%url 'product' rec.id %}">
             <div class="best__product">
-                <img src="{%static 'images/ModemFirst.png'%}" alt="" class="bestseller__img">
+                <img src="{{rec.photo.url}}" alt="" class="bestseller__img">
                 <p class="product__price">
-                    3 090 ₽
+                    {{rec.price}} ₽
                 </p>
                 <p class="about__product">
-                    4G LTE модем HUAWEI E3372h-153
+                    {{product.title}}
                 </p>
             </div>
-            <div class="best__product">
-                <img src="images/ModemSecond.png" alt="" class="bestseller__img">
-                <p class="product__price">
-                    3 090 ₽
-                </p>
-                <p class="about__product">
-                    4G LTE модем HUAWEI E3372h-153
-                </p>
-            </div>
-            <div class="best__product">
-                <img src="images/ModemThird.png" alt="" class="bestseller__img">
-                <p class="product__price">
-                    3 090 ₽
-                </p>
-                <p class="about__product">
-                    4G LTE модем HUAWEI E3372h-153
-                </p>
-            </div>
-            <div class="best__product">
-                <img src="images/modemFour.png" alt="" class="bestseller__img">
-                <p class="product__price">
-                    3 090 ₽
-                </p>
-                <p class="about__product">
-                    4G LTE модем HUAWEI E3372h-153
-                </p>
-            </div>
-            <div class="best__product">
-                <img src="images/ModemFirst.png" alt="" class="bestseller__img">
-                <p class="product__price">
-                    3 090 ₽
-                </p>
-                <p class="about__product">
-                    4G LTE модем HUAWEI E3372h-153
-                </p>
-            </div>
-            <div class="best__product">
-                <img src="images/modemSecond.png" alt="" class="bestseller__img">
-                <p class="product__price">
-                    3 090 ₽
-                </p>
-                <p class="about__product">
-                    4G LTE модем HUAWEI E3372h-153
-                </p>
-            </div>
-            <div class="best__product">
-                <img src="images/modemThird.png" alt="" class="bestseller__img">
-                <p class="product__price">
-                    3 090 ₽
-                </p>
-                <p class="about__product">
-                    4G LTE модем HUAWEI E3372h-153
-                </p>
-            </div>
+                </a>
+            {%endfor%}
         </div>
     </div>
 </div>

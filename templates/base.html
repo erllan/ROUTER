@@ -69,7 +69,7 @@
                                 onclick="closeSearch()">
                         </div>
                         <div class="trash">
-                            <a href="{%url 'basket'%}"><img src="{%static 'images/trash.png'%}" alt="TRASH" class="trash__logo"></a>
+                            <a href="{%url 'order'%}"><img src="{%static 'images/trash.png'%}" alt="TRASH" class="trash__logo"></a>
                         </div>
                     </div>
                 </div>
@@ -122,5 +122,12 @@
     </footer>
 <script src="{%static 'js/slick.min.js'%}"></script>
 <script src="{%static 'js/index.js'%}"></script>
+<script src="{%static 'js/order.js'%}"></script>
+<script>
+    $(document).ready(function(){
+   order()
+})
+
+</script>
 </body>
 </html>

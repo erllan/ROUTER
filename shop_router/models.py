@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 
+
 class Category(models.Model):
     category = models.CharField(verbose_name='катигория', max_length=255)
 
@@ -21,12 +22,18 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Описания', )
     photo = models.ImageField(verbose_name='Главное фото', upload_to='album/')
     category = models.ManyToManyField(Category, verbose_name='катигория')
-    price = models.IntegerField(null=True)
+    price = models.IntegerField(default=0)
     color = models.CharField(max_length=255, null=True)
     size = models.CharField(max_length=255, null=True)
     interface = models.CharField(max_length=255, null=True)
     safety = models.CharField(max_length=255, null=True)
     date = models.DateTimeField(verbose_name='Дата', default=datetime.now)
+    sale = models.IntegerField('Скидка в процентах', blank=True, default=0)
+
+    def get_sale(self):
+        proc = int((self.sale * self.price) / 100)
+        price = self.price - proc
+        return price
 
     def __str__(self):
         return self.title

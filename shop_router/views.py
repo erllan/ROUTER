@@ -1,6 +1,8 @@
 from django.shortcuts import render, reverse
 from .models import *
 import json
+import sys
+from pprint import pprint
 from django.http import HttpResponse, HttpResponseRedirect
 
 
@@ -23,11 +25,12 @@ def form(request):
             city = request.POST['city']
             comment = request.POST['comment']
             customer = Customer.objects.create(full_name=full_name, phone=phone, Email=email, delivery_city=city,
-                                              Comment=comment)
+                                               Comment=comment)
             des = testOrder.replace("'", '"')
             data = json.loads(des)
             for items in data['data']:
-                Order.objects.create(product_id=items['id'], from_customer_id=customer.id,
+                product = Product.objects.get(id=int(items['id']))
+                Order.objects.create(product=product, from_customer=customer,
                                      order_quantities=items['count'])
             return HttpResponse('создано')
     return render(request, 'shop_router/form.html')
@@ -35,14 +38,28 @@ def form(request):
 
 def addCountOrder(request, id_object):
     if request.COOKIES.get('Order'):
-        response = HttpResponse("тест куки")
+        response = HttpResponse(json.dumps({"status": 200}), content_type="application/json")
         cook = request.COOKIES.get('Order')
         des = cook.replace("'", '"')
         data = json.loads(des)
         for item in data['data']:
             if id_object == item['id']:
                 item['count'] += 1
-        response.set_cookie("Order", data, max_age=100)
+        response.set_cookie("Order", data, max_age=3600)
+        return response
+
+
+def minusCountOrder(request, id_object):
+    if request.COOKIES.get('Order'):
+        response = HttpResponse("минус")
+        cook = request.COOKIES.get('Order')
+        des = cook.replace("'", '"')
+        data = json.loads(des)
+        for item in data['data']:
+            if id_object == item['id']:
+                if item['count'] > 0:
+                    item['count'] -= 1
+        response.set_cookie("Order", data, max_age=3600)
         return response
 
 
@@ -51,11 +68,13 @@ def order(request):
     if order_data:
         des = order_data.replace("'", '"')
         order_id = json.loads(des)
-        id = []
+        ids = []
+        productCouunts = {}
         for item in order_id['data']:
-            id.append(int(item['id']))
-        order_product = Product.objects.filter(id__in=id)
-        return render(request, 'shop_router/order.html', {'product': order_product})
+            # productCouunts[item['id']] = item['count']
+            ids.append(int(item['id']))
+        order_product = Product.objects.filter(id__in=ids)
+        return render(request, 'shop_router/order.html', {'product': order_product, 'counts': productCouunts})
     return render(request, 'shop_router/basket.html')
 
 
@@ -66,18 +85,19 @@ def addProductToBascet(request, id_object, count=1):
         des = orderCookie.replace("'", '"')
         dataCookie = json.loads(des)
         dataCookie["data"].append({"id": id_object, "count": count})
-        response.set_cookie("Order", dataCookie, max_age=100)
+        response.set_cookie("Order", dataCookie, max_age=3600)
 
     else:
-        data = json.dumps({"data": [{"id": 1, "count": count}]})
+        data = json.dumps({"data": [{"id": id_object, "count": count}]})
         response = HttpResponse("ваш заказ добавлен в карзину")
-        response.set_cookie("Order", data, max_age=100)
+        response.set_cookie("Order", data, max_age=3600)
     return response
 
 
 def product(request, id_obj):
     prod = Product.objects.get(id=id_obj)
-    return render(request, 'shop_router/product.html', {'product': prod})
+    recoment = prod.brand.product_set.all()
+    return render(request, 'shop_router/product.html', {'product': prod, 'recoment': recoment})
 
 
 def routers(request):

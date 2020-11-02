@@ -8,15 +8,18 @@
     <div class="form-group">
         <form action="{%url 'add'%}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <input  type="text" name="title" placeholder="названия" class="form-control" required>
+            <input type="text" name="title" placeholder="названия" class="form-control" required>
             <br>
             <textarea name="description" placeholder="описания..." class="form-control"></textarea>
             <br>
-            <input  type="text" name="size" placeholder="размер" class="form-control" required>
-            <input  type="text" name="safety" placeholder="безапаснось" class="form-control" required>
-            <input  type="text" name="interface" placeholder="интерфейс" class="form-control" required>
-            <input  type="text" name="colors" placeholder="цвета" class="form-control" required>
-
+            <input type="text" name="size" placeholder="размер" class="form-control" required>
+            <br>
+            <input type="text" name="safety" placeholder="безапаснось" class="form-control" required>
+            <br>
+            <input type="text" name="interface" placeholder="интерфейс" class="form-control" required>
+            <br>
+            <input type="text" name="colors" placeholder="цвета" class="form-control" required>
+            <br>
             <div class="row">
                 <div class="col">
                     <select name='brand' class="custom-select" id="inputGroupSelect01" required>
@@ -40,8 +43,6 @@
                 </div>
             </div>
             <br>
-
-
             <input type="number" name="price" placeholder="цена" class="form-control" required>
             <br>
             <div class="custom-file">

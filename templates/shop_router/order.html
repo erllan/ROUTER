@@ -17,13 +17,14 @@
                 <div class="quantity">
                     <p class="order__product-text">{{prod.title}}</p>
                     <div class="quantity__block">
-                        <button class="quantity__button">
-                            -
-                        </button>
-                        <a href="{% url 'addCount' prod.id%}" class="number__order">1</a>
-                        <button class="quantity__button">
-                            +
-                        </button>
+                            <button data-action="{% url 'minusCount' prod.id%}" class="quantity__button minus-btn">
+                                -
+                            </button>
+                        <span class='count'>{{ counts }}</span>
+
+                            <button data-action="{% url 'addCount' prod.id%}" class="quantity__button plus-btn">
+                                +
+                            </button>
                     </div>
                     <p class="price__order">
                         {{prod.price}}
@@ -31,7 +32,7 @@
                 </div>
             </div>
             {%endfor%}
-        {%endif%}
+            {%endif%}
             <div class="order__checkout">
                 <div class="order__sale">
                     <p class="order__sale-sale">Скидка: 637 ₽</p>
@@ -44,7 +45,7 @@
                         4 457 ₽
                     </p>
                     <div class="checkout__button">
-                        <a href="#" class="onTrash checkout">
+                        <a href="{%url 'form'%}" class="onTrash checkout">
                             Оформить заказ
                         </a>
                     </div>

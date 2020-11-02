@@ -2,10 +2,25 @@
 {%load static%}
 {%block body%}
 {%if products%}
+<h3 class="text-center" >{{category.category}}</h3>
 {%for product in products%}
-<h5>{{product.title}}</h5>
+<a href="{%url 'detailProduct' product.id%}">
+<div class="product">
+    <div class="container-fluid">
+    <img src="{{product.photo.url}}" alt="" height="150" width='150'>
+    <h5>{{product.title}}</h5>
+    <h5>{{product.brand}}</h5>
+</div>
+</div>
+</a>
+<hr>
 {%endfor%}
-{%else%}
-dsa
+
 {%endif%}
+<style>
+    .product{
+    background-color: lightsteelblue;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+</style>
 {%endblock%}

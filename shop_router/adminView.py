@@ -4,7 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from .models import Product, Category, Album, Brand, Customer
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 def login_admin(request):
@@ -23,10 +23,22 @@ def login_admin(request):
 
 def index(request):
     if request.user.is_authenticated:
-        test = Customer.objects.all()
-        return render(request, 'admin/index.html', {'test': test})
+        return render(request, 'admin/index.html')
     else:
         return HttpResponseRedirect(reverse('login'))
+
+
+def customer(request):
+    all_customer = Customer.objects.all().order_by('-order_date')
+    return render(request, 'admin/customers.html', {'customers': all_customer})
+
+
+def sale(request, id_object):
+    if request.method == 'POST':
+        prod = Product.objects.get(id=id_object)
+        prod.sale = int(request.POST['sale'])
+        prod.save()
+        return HttpResponse('акция')
 
 
 def admin_logout(request):
@@ -35,9 +47,8 @@ def admin_logout(request):
 
 
 def allProduct(request):
-    products = Product.objects.all()
-    categories = Category.objects.all()
-    return render(request, 'admin/Product.html', {'products': products, 'categories': categories})
+    products = Product.objects.all().order_by('-date')
+    return render(request, 'admin/Product.html', {'products': products})
 
 
 def productForm(request):
@@ -66,7 +77,7 @@ def deleteBrand(request, id_object):
 def category_set(request, id_object):
     category = Category.objects.get(id=id_object)
     products = category.product_set.all()
-    return render(request, 'admin/category_set.html', {'products': products})
+    return render(request, 'admin/category_set.html', {'products': products, 'category': category})
 
 
 class BrandListCreate(View):
@@ -153,3 +164,8 @@ class DetailProductAndCreateAlbum(View):
                 filename = fs.save(myfile.name, myfile)
                 newAlbum = Album.objects.create(photo='/album/' + filename, to_product=product)
                 return HttpResponse('создано')
+
+
+def order(request, id_object):
+    customer = Customer.objects.get(id=id_object)
+    return render(request, 'admin/order.html', {'customer': customer})
