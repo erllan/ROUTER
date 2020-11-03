@@ -1,14 +1,14 @@
 from django.shortcuts import render, reverse
 from .models import *
 import json
-import sys
-from pprint import pprint
 from django.http import HttpResponse, HttpResponseRedirect
 
 
 def index(request):
+    saleProduct = Product.objects.all().order_by('-sale')
+    sale = saleProduct.exclude(sale=0)
     category = Category.objects.all()
-    return render(request, 'shop_router/index.html', {'categories': category})
+    return render(request, 'shop_router/index.html', {'categories': category, 'sales': sale})
 
 
 def basket(request):
@@ -51,7 +51,7 @@ def addCountOrder(request, id_object):
 
 def minusCountOrder(request, id_object):
     if request.COOKIES.get('Order'):
-        response = HttpResponse("минус")
+        response = HttpResponse(json.dumps({"status": 200}), content_type="application/json")
         cook = request.COOKIES.get('Order')
         des = cook.replace("'", '"')
         data = json.loads(des)
@@ -71,10 +71,17 @@ def order(request):
         ids = []
         productCouunts = {}
         for item in order_id['data']:
-            # productCouunts[item['id']] = item['count']
+            productCouunts[item['id']] = item['count']
             ids.append(int(item['id']))
         order_product = Product.objects.filter(id__in=ids)
-        return render(request, 'shop_router/order.html', {'product': order_product, 'counts': productCouunts})
+        total = 0
+        allSale = 0
+        for object in order_product:
+            total += object.price
+            allSale += (object.price-object.get_sale())
+
+        return render(request, 'shop_router/order.html',
+                      {'product': order_product, 'counts': productCouunts, 'total': total-allSale, 'allSale': allSale})
     return render(request, 'shop_router/basket.html')
 
 

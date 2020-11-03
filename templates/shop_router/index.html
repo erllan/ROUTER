@@ -76,47 +76,43 @@
                 Акции
             </h2>
             <div class="product__block" id="product__block">
+                {%if sales%}
+
                 <div class="product">
-                    <img src="images/product__first.png" alt="" class="product__img">
-                    <img src="images/sale__first.png" alt="" class="sale__img">
-                    <p class="sale__text">-60%</p>
+                    <img src="{{sales.0.photo.url}}" alt="" class="product__img">
+                    <img src="{%static 'images/sale__first.png'%}" alt="" class="sale__img">
+                    <p class="sale__text">-{{sales.0.sale}}%</p>
                     <div class="product__desc">
-                        <p class="product__text">HUAWEI WiFi AX3 (Dual-core)</p>
-                        <p class="price__old">2 990 ₽</p>
+                        <p class="product__text">{{sales.0.title}}</p>
+                        <p class="price__old">{{sales.0.price}} ₽</p>
                         <div class="price__full">
-                            <p class="price__new">1800 ₽</p>
+                            <p class="price__new">{{sales.0.get_sale}} ₽</p>
+                            <a href="{%url 'addProductToBascet' sales.0.id %}">
                             <button class="plus">+</button>
+                            </a>
                         </div>
                     </div>
                     <a href="#popup" class="view" id="view">Быстрый просмотр</a>
                 </div>
+                {% for sales in sale%}
                 <div class="product__two">
                     <div class="productTwo">
-                        <img src="images/product__two.png" alt="" class="product__imgTwo">
-                        <img src="images/sale__two.png" alt="" class="sale__imgTwo">
-                        <p class="sale__textTwo">-25%</p>
+                        <img src="{{sale.photo.url}}" alt="" class="product__imgTwo">
+                        <img src="{% static 'images/sale__two.png'%}" alt="" class="sale__imgTwo">
+                        <p class="sale__textTwo">-{{sale.sale}}%</p>
                         <div class="product__desc">
-                            <p class="product__text product__textTwo">HUAWEI WiFi Q2 Pro (3 Pack Hybrid)</p>
-                            <p class="price__old">1260 ₽</p>
+                            <p class="product__text product__textTwo">{{sale.1.title}}</p>
+                            <p class="price__old">{{sale.price}} ₽</p>
                             <div class="price__full price__fullTwo">
-                                <p class="price__new">900 ₽</p>
+                                <p class="price__new">{{sale.get_sale}} ₽</p>
+                                <a href="{%url 'addProductToBascet' sale.id %}">
                                 <button class="plus">+</button>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="productTwo">
-                        <img src="images/product__three.png" alt="" class="product__imgTwo">
-                        <img src="images/sale__third.png" alt="" class="sale__imgThree">
-                        <p class="sale__textThree">-30%</p>
-                        <div class="product__desc">
-                            <p class="product__text">HUAWEI WiFi Q2 Pro (1 Base + 1 Satellite)</p>
-                            <p class="price__old">1260 ₽</p>
-                            <div class="price__full price__fullTwo">
-                                <p class="price__new">850 ₽</p>
-                                <button class="plus">+</button>
-                            </div>
-                        </div>
-                    </div>
+                    {%endfor%}
+                    {%endif%}
                 </div>
             </div>
         </div>
@@ -126,7 +122,7 @@
             {{category.category}}
         </div>
         <div class="slideBar">
-        {%for product in category.product_set.all %}
+            {%for product in category.product_set.all %}
             <div class="best__product">
                 <img src="{{product.photo.url}}" alt="" class="bestseller__img">
                 <a href="{%url 'product' product.id %}"><p class="bestseller__title">{{product.title}}</p></a>
@@ -140,7 +136,7 @@
                 </div>
             </div>
 
-        {%endfor%}
+            {%endfor%}
         </div>
 
         {%endfor%}

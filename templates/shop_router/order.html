@@ -12,37 +12,51 @@
             {%for prod in product%}
             <div class="order__wrap">
                 <img src="{{prod.photo.url}}" alt="ORDER" class="order__img">
+                {% if prod.sale > 0%}
                 <img src="{%static 'images/sale__two.png'%}" alt="" class="sale__imgTwo sale__img-order">
-                <p class="sale__textTwo">-25%</p>
+                <p class="sale__textTwo">-{{prod.sale}}%</p>
+                {%endif%}
                 <div class="quantity">
                     <p class="order__product-text">{{prod.title}}</p>
                     <div class="quantity__block">
-                            <button data-action="{% url 'minusCount' prod.id%}" class="quantity__button minus-btn">
-                                -
-                            </button>
-                        <span class='count'>{{ counts }}</span>
+                        <button data-action="{% url 'minusCount' prod.id%}" class="quantity__button minus-btn">
+                            -
+                        </button>
+                        <span class='count'>
+                            {%for k,v in counts.items%}
+                            {%if prod.id == k%}
+                            {{v}}
+                            {%endif%}
+                            {%endfor%}
+                        </span>
 
-                            <button data-action="{% url 'addCount' prod.id%}" class="quantity__button plus-btn">
-                                +
-                            </button>
+                        <button data-action="{% url 'addCount' prod.id%}" class="quantity__button plus-btn">
+                            +
+                        </button>
                     </div>
+                    {% if prod.sale > 0%}
+                    <p class="price__order">
+                        {{prod.get_sale}}
+                    </p>
+                    {%else%}
                     <p class="price__order">
                         {{prod.price}}
                     </p>
+
+                    {%endif%}
                 </div>
             </div>
             {%endfor%}
-            {%endif%}
             <div class="order__checkout">
                 <div class="order__sale">
-                    <p class="order__sale-sale">Скидка: 637 ₽</p>
+                  <p class="order__sale-sale">Скидка: {{allSale}} ₽</p>
                 </div>
                 <div class="total">
                     <p class="order__total-title">
                         Итого:
                     </p>
                     <p class="order__total-price">
-                        4 457 ₽
+                        {{total}} ₽
                     </p>
                     <div class="checkout__button">
                         <a href="{%url 'form'%}" class="onTrash checkout">
@@ -53,5 +67,6 @@
             </div>
         </div>
     </div>
+    {%endif%}
 </section>
 {%endblock%}
