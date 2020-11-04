@@ -12,4 +12,5 @@ urlpatterns = [
     path('addProductToBascet/<int:id_object>', views.addProductToBascet, name='addProductToBascet'),
     path('addCount/<int:id_object>', views.addCountOrder, name='addCount'),
     path('minusCount/<int:id_object>', views.minusCountOrder, name='minusCount'),
+    path('minusCount/<int:id_object>', views.minusCountOrder, name='minusCount'),
 ]

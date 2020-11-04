@@ -4,11 +4,17 @@ import json
 from django.http import HttpResponse, HttpResponseRedirect
 
 
+def allCategory():
+    category = Category.objects.all()
+    return category
+
+
 def index(request):
+    catalog = allCategory()
     saleProduct = Product.objects.all().order_by('-sale')
     sale = saleProduct.exclude(sale=0)
     category = Category.objects.all()
-    return render(request, 'shop_router/index.html', {'categories': category, 'sales': sale})
+    return render(request, 'shop_router/index.html', {'categories': category, 'sales': sale, 'catalogs': catalog})
 
 
 def basket(request):
@@ -78,10 +84,11 @@ def order(request):
         allSale = 0
         for object in order_product:
             total += object.price
-            allSale += (object.price-object.get_sale())
+            allSale += (object.price - object.get_sale())
 
         return render(request, 'shop_router/order.html',
-                      {'product': order_product, 'counts': productCouunts, 'total': total-allSale, 'allSale': allSale})
+                      {'product': order_product, 'counts': productCouunts, 'total': total - allSale,
+                       'allSale': allSale})
     return render(request, 'shop_router/basket.html')
 
 
