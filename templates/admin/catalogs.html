@@ -1,0 +1,18 @@
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
+<h3 class="text-center">Каталог</h3>
+<form action="{%url 'catalogs'%}" method="post">
+    {%csrf_token%}
+    <input type="text" name="title">
+    <input type="submit">
+</form>
+{%if catalogs%}
+{%for catalog in catalogs%}
+<div><a href="{%url 'getCatalog' catalog.id%}">{{catalog.title}}</a>
+    <a href="{%url 'deleteCatalog' catalog.id%}">удалить</a>
+</div>
+{%endfor%}
+{%endif%}
+{%endblock%}
+

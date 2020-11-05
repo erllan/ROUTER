@@ -1,0 +1,15 @@
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
+{%for hit in hits%}
+{{hit.title}}
+{%endfor%}
+<H1>ПРОБЕЛ</H1>
+{%for product in products%}
+{%if product.hit != True%}
+<div><a href="{%url 'addToHit' product.id %}">{{product.title}}</a></div>
+
+{%endif%}
+{%endfor%}
+
+{%endblock%}

@@ -4,28 +4,25 @@
 {%if products%}
 {%for product in products%}
 <div class="container-fluid">
-    <div class="product">
+
+    <div class="d-block p-2 bg-dark text-white">
         <div class="container-fluid">
             <a href="{%url 'detailProduct' product.id%}">
-                <img src="{{product.photo.url}}" alt="" class="bestseller__img" height="150" width='150'>
-                <p class="bestseller__title">{{product.title}}</p>
-                <p class="bestseller__text">{{product.description}}</p>
+                <span class="d-block p-2 bg-primary text-white">{{product.title}}</span>{{product.title}}
                 <div class="bestseller__cost">
                     <p class="bestseller__price">{{product.price}}₽</p>
                 </div>
             </a>
         </div>
     </div>
+    <span  class="d-block p-2 text-white" ></span>
+
 </div>
 {%endfor%}
 {%else%}
 <h3>пока нет продуктов</h3>
 {%endif%}
 <style>
-    .product{
-        background-color: lightsteelblue;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
 
 
 </style>

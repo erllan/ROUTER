@@ -73,7 +73,7 @@
             {%for rec in recoment%}
             <a href="{%url 'product' rec.id %}">
             <div class="best__product">
-                <img src="{{rec.photo.url}}" alt="" class="bestseller__img">
+                <img src="{{rec.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
                 <p class="product__price">
                     {{rec.price}} ₽
                 </p>

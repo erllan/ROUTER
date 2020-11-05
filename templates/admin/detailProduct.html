@@ -3,12 +3,23 @@
 {%block body%}
 <div class="container-fluid">
     <div class="order__block">
-        <img src="{{product.photo.url}}" alt="ORDER" class="order__img" height="150" width='150'>
+
         <ul>
             <li>{{product.title}}</li>
             <li>бренд: {{product.brand}}</li>
             <li> цена: {{product.price}}</li>
-            <li> акция: {{product.sale}}</li>
+            <li>
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">акция: {{product.sale}}</div>
+                    <div class="p-2 bd-highlight">
+                        <form action="{%url 'addSale' product.id%}" method="post">{% csrf_token%}
+                            <input type="number" name="sale" id="replyNumber" min="0" data-bind="value:replyNumber">
+                            <input type="submit">
+                        </form>
+                    </div>
+
+                </div>
+            </li>
             <li> цена акция: {{product.get_sale}}</li>
             <li>дата : {{product.date}}</li>
             <li>цвета : {{product.color}}</li>
@@ -22,9 +33,6 @@
             <button class="plus">удалить</button>
         </a>
     </div>
-    <form action="{%url 'addSale' product.id%}" method="post">{% csrf_token%}<input type="number" name="sale">
-        <input type="submit">
-    </form>
     <hr>
     <h3 class="text-center">Галерея</h3>
     <form action="{%url 'detailProduct' product.id %}" enctype="multipart/form-data" method="post">

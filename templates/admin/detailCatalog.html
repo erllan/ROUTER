@@ -1,0 +1,19 @@
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
+{%if catalog%}
+<div  class="text-center">{{catalog.title}}</div>
+{%endif%}
+<form action="{%url 'getCatalog' catalog.id%}" method="post">
+    {%csrf_token%}
+    <input type="text" name='category'>
+    <input type="submit">
+</form>
+{%for category in catalog.category_set.all%}
+<div><a href="{%url 'detailCategory' category.id%}">{{category.category}}</a>
+
+    <a href="{%url 'deleteCategory' category.id%}">удалить</a>
+</div>
+
+{%endfor%}
+{%endblock%}

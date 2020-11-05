@@ -2,8 +2,16 @@ from django.db import models
 from datetime import datetime
 
 
+class Catalog(models.Model):
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
 class Category(models.Model):
     category = models.CharField(verbose_name='катигория', max_length=255)
+    catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.category
@@ -20,7 +28,6 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
     title = models.CharField(verbose_name='Названия', max_length=255)
     description = models.TextField(verbose_name='Описания', )
-    photo = models.ImageField(verbose_name='Главное фото', upload_to='album/')
     category = models.ManyToManyField(Category, verbose_name='катигория')
     price = models.IntegerField(default=0)
     color = models.CharField(max_length=255, null=True)
@@ -28,15 +35,18 @@ class Product(models.Model):
     interface = models.CharField(max_length=255, null=True)
     safety = models.CharField(max_length=255, null=True)
     date = models.DateTimeField(verbose_name='Дата', default=datetime.now)
+    hit = models.BooleanField(default=False)
     sale = models.IntegerField('Скидка в процентах', blank=True, default=0)
 
-    def get_sale(self):
-        proc = int((self.sale * self.price) / 100)
-        price = self.price - proc
-        return price
 
-    def __str__(self):
-        return self.title
+def get_sale(self):
+    proc = int((self.sale * self.price) / 100)
+    price = self.price - proc
+    return price
+
+
+def __str__(self):
+    return self.title
 
 
 class Album(models.Model):

@@ -6,129 +6,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&family=Montserrat:wght@400;500&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
-    <link rel="stylesheet" type="text/css" href="{%static 'css/slick.css'%}" />
+    <link rel="stylesheet" type="text/css" href="{%static 'css/slick.css'%}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>{%block title%}{%endblock%}</title>
 </head>
 
 <body>
 <div class="header">
-        <div class="container">
-            <div class="main__nav">
-                <div class="logo">
-                    <a href="/"> <img src="{%static 'images/logo.png'%}" alt="LOGO" class="logo__img"></a>
-                </div>
-                <div class="nav">
-                    <div class="drop__block">
-                        <div class="dropdown">
-                            <a href="#" class="dropbtn">Каталог</a>
-                            <img class="polygon" src="{%static 'images/Polygon.png'%}" alt="" srcset="">
-                            <div class="dropdown-content">
-                                <div class="dropdown__routers">
-                                    <a href="#" class="drop-link ">Роутеры и модемы</a>
-                                    <div class="dropdown-content-routers">
-                                        {%if categories%}
-                                        <a href="order.html" class="drop-link drop__link__rout">Комплектующие</a>
-                                        <a href="product.html" class=" drop__link-routers "> DSL-модемы
-                                            -маршрутизаторы</a>
-                                        <a href="form.html" class=" drop__link-routers "> Кабельные модемы и
-                                            маршрутизаторы</a>
-                                        <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
-                                            PON SFU и HGU</a>
-                                    </div>
-                                    <div class="dropdown-content-routersOne">
-                                        <a href="routers.html" class="drop__link-routers ">Usb dongle </a>
-                                        <a href="routers.html" class=" drop__link-routers "> Usb Wifi</a>
-                                        <a href="routers.html" class=" drop__link-routers "> MiFi</a>
-                                        <a href="routers.html" class=" drop__link-routers">CPE</a>
-                                        <a href="routers.html" class=" drop__link-routers"> Маршрутизаторы</a>
-                                    </div>
+    <div class="container">
+        <div class="main__nav">
+            <div class="logo">
+                <a href="/"> <img src="{%static 'images/logo.png'%}" alt="LOGO" class="logo__img"></a>
+            </div>
+            <div class="nav">
+                <div class="drop__block">
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">Каталог</a>
+                        <img class="polygon" src="{%static 'images/Polygon.png'%}" alt="" srcset="">
+                        <div class="dropdown-content">
+                            <div class="dropdown__routers">
+                                {%for catalog in catalogs%}
+                                <a href="">test</a>
+                                {%endfor%}
+                                <div class="dropdown-content-routers">
+                                    <a href="order.html" class="drop-link drop__link__rout">Комплектующие</a>
+                                    <a href="product.html" class=" drop__link-routers "> DSL-модемы
+                                        -маршрутизаторы</a>
+                                    <a href="form.html" class=" drop__link-routers "> Кабельные модемы и
+                                        маршрутизаторы</a>
+                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
+                                        PON SFU и HGU</a>
                                 </div>
-                                <a href="order.html" class="drop-link">WiFi & CPE</a>
-                            </div>
-                        </div>
-                        <a href="{%url 'about'%}" class="about__company">О компании</a>
-                    </div>
-                    <div class="menu__right">
-                        <div class="contact" id="contact">
-                            <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
-                            <a href="#" class="contact__link nomer">0707 708 899</a>
-                        </div>
-                        <div id="search" class="search-box search">
-                            <a href="#"><img src="{%static 'images/search.png'%}" alt="" class="search__img" onclick="go()"></a>
-                        </div>
-                        <div class="search__input" id="search__input">
-                            <input type="text" class="search__input-text" placeholder="Поиск по сайту">
-                            <img src="{%static 'images/cancel.png'%}" alt="CLOSE" class="search__input-close"
-                                onclick="closeSearch()">
-                        </div>
-                        <div class="trash">
-                            <a href="{%url 'order'%}"><img src="{%static 'images/trash.png'%}" alt="TRASH" class="trash__logo"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="input__block-mobile">
-            <input type="text" class="search__mobile" placeholder="Поиск по сайту">
-            <a href="#" class="search__img-mobile"><img src="{%static 'images/search.png'%}" alt="" srcset=""></a>
-        </div>
-        <div class="nav-mobile">
-            <label for="toggle" class="toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            <input type="checkbox" id="toggle" />
-            <div class="menu_mobile">
-                <div class="ul-mobile">
-                    <li><a href="about.html" class="nav__link-mobile">О компании</a></li>
-                    <li><a href="{%url 'basket'%}" class="nav__link-mobile">Корзина</a></li>
-                    <li><a href="#" class="nav__link-mobile">0707 708 899</a></li>
-                    <img class="logo__img logo__mobile" src="{%static 'images/logo.png'%}" alt="LOGO">
-                </div>
-            </div>
-        </div>
 
+
+                                <div class="dropdown-content-routersOne">
+                                    <a href="routers.html" class="drop__link-routers ">Usb dongle </a>
+                                    <a href="routers.html" class=" drop__link-routers "> Usb Wifi</a>
+                                    <a href="routers.html" class=" drop__link-routers "> MiFi</a>
+                                    <a href="routers.html" class=" drop__link-routers">CPE</a>
+                                    <a href="routers.html" class=" drop__link-routers"> Маршрутизаторы</a>
+
+                                </div>
+
+                            </div>
+                            <a href="order.html" class="drop-link">WiFi & CPE</a>
+                        </div>
+                    </div>
+                    <a href="{%url 'about'%}" class="about__company">О компании</a>
+                </div>
+                <div class="menu__right">
+                    <div class="contact" id="contact">
+                        <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
+                        <a href="#" class="contact__link nomer">0707 708 899</a>
+                    </div>
+                    <div id="search" class="search-box search">
+                        <a href="#"><img src="{%static 'images/search.png'%}" alt="" class="search__img" onclick="go()"></a>
+                    </div>
+                    <div class="search__input" id="search__input">
+                        <form action="{%url 'search'%}" method="get">
+                            <input type="text" name="title" class="search__input-text" placeholder="Поиск по сайту">
+
+                        <img src="{%static 'images/cancel.png'%}" alt="CLOSE" class="search__input-close"
+                             onclick="closeSearch()">
+                         </form>
+                    </div>
+                    <div class="trash">
+                        <a href="{%url 'order'%}"><img src="{%static 'images/trash.png'%}" alt="TRASH"
+                                                       class="trash__logo"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="input__block-mobile">
+        <input type="text" class="search__mobile" placeholder="Поиск по сайту">
+        <a href="#" class="search__img-mobile"><img src="{%static 'images/search.png'%}" alt="" srcset=""></a>
+    </div>
+    <div class="nav-mobile">
+        <label for="toggle" class="toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <input type="checkbox" id="toggle"/>
+        <div class="menu_mobile">
+            <div class="ul-mobile">
+                <li><a href="{%url 'about'%}" class="nav__link-mobile">О компании</a></li>
+                <li><a href="{%url 'order'%}" class="nav__link-mobile">Корзина</a></li>
+                <li><a href="#" class="nav__link-mobile">0707 708 899</a></li>
+                <img class="logo__img logo__mobile" src="{%static 'images/logo.png'%}" alt="LOGO">
+            </div>
+        </div>
+    </div>
+
+</div>
 {%block body%}
 
 
 {%endblock%}
 <footer class="footer">
-        <div class="container">
-            <div class="footer__footer">
-                <img src="{%static 'images/logo.png'%}" alt="" class="logo logo__footer">
-                <p class="footer__text">© 2020, Компания Hetwok.
-                    Все права защищены.
-                </p>
-                <div class="contact contact__footer">
-                    <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
-                    <a href="#" class="contact__link">0707 708 899</a>
-                </div>
-                <div class="social__network">
-                    <a href="#" class="insta"> <img src="{%static 'images/instagram.png'%}" alt=""></a>
-                    <a href=" #" class="facebook"> <img src="{%static 'images/facebook.png'%}" alt=""></a>
-                </div>
+    <div class="container">
+        <div class="footer__footer">
+            <img src="{%static 'images/logo.png'%}" alt="" class="logo logo__footer">
+            <p class="footer__text">© 2020, Компания Hetwok.
+                Все права защищены.
+            </p>
+            <div class="contact contact__footer">
+                <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
+                <a href="#" class="contact__link">0707 708 899</a>
+            </div>
+            <div class="social__network">
+                <a href="#" class="insta"> <img src="{%static 'images/instagram.png'%}" alt=""></a>
+                <a href=" #" class="facebook"> <img src="{%static 'images/facebook.png'%}" alt=""></a>
             </div>
         </div>
+    </div>
 
-    </footer>
+</footer>
+
 <script src="{%static 'js/slick.min.js'%}"></script>
 <script src="{%static 'js/index.js'%}"></script>
 <script src="{%static 'js/order.js'%}"></script>
+<script>
+
+</script>
 <script>
     $(document).ready(function(){
    orderPlus()
    orderMinus()
 })
+
 
 </script>
 </body>

@@ -2,21 +2,12 @@
 {%load static%}
 {%block body%}
 <div class="container-fluid">
-    <h1 class="text-center">Категории</h1>
-    <form action="{%url 'createCategory'%}" method="post" class="text-right">
-        {% csrf_token %}
-        <input type="text" name='category' placeholder="создать">
-        <input type="submit">
-    </form>
+    <h1 class="text-center">{{category.category}}</h1>
     <hr>
     <div>
-        {%if categories%}
-        {%for category in categories%}
-        <a href="{%url 'category_set' category.id%}"><h4>{{category.category}}</h4></a>
-        <a href="{%url 'CategoryDelete' category.id%}">
-            удалить
-        </a>
-
+        {%if category%}
+        {%for product in category.product_set.all%}
+        <a href="{%url 'detailProduct' product.id%}"><h4>{{product.title}}</h4></a>
         {%endfor%}
         {%endif%}
     </div>

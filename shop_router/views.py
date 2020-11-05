@@ -2,19 +2,34 @@ from django.shortcuts import render, reverse
 from .models import *
 import json
 from django.http import HttpResponse, HttpResponseRedirect
+from .serializers import ProductSerializers
+from rest_framework.views import APIView
+
+
+class Search(APIView):
+    def get(self, request, format=None):
+        search = request.GET['title']
+        result = Product.objects.filter(title__icontains=search)
+        serializer = ProductSerializers(result, many=True)
+        return HttpResponse(serializer.data)
 
 
 def allCategory():
-    category = Category.objects.all()
-    return category
+    catalog = Catalog.objects.all()
+    return catalog
 
 
 def index(request):
     catalog = allCategory()
     saleProduct = Product.objects.all().order_by('-sale')
     sale = saleProduct.exclude(sale=0)
-    category = Category.objects.all()
-    return render(request, 'shop_router/index.html', {'categories': category, 'sales': sale, 'catalogs': catalog})
+    hits = saleProduct.filter(hit=True)
+    return render(request, 'shop_router/index.html', {'sales': sale[:3], 'catalogs': catalog, 'hits':hits})
+
+
+def category_set(request, id_object):
+    category = Category.objects.get(id=id_object)
+    return render(request, 'shop_router/category.html', {'category': category})
 
 
 def basket(request):

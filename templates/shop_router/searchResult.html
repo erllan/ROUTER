@@ -1,0 +1,9 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body%}
+{%if result%}
+{%for res in result%}
+{{res.title}}
+{%endfor%}
+{%endif%}
+{%endblock%}

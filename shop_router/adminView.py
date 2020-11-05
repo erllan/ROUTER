@@ -1,10 +1,54 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.files.storage import FileSystemStorage
-from .models import Product, Category, Album, Brand, Customer
+from .models import Product, Category, Album, Brand, Customer, Catalog
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+
+"""Каталог и категории"""
+
+
+def catalog(request):
+    c = Catalog.objects.all()
+    return render(request, 'admin/catalog.html', {'catalogs': c})
+
+
+def createCatalog(request):
+    if request.method == 'POST':
+        if len(request.POST['title']) > 0:
+            create = Catalog(title=request.POST['title'])
+            create.save()
+            return HttpResponseRedirect(reverse('catalogs', ))
+    catalogs = Catalog.objects.all()
+    return render(request, 'admin/catalogs.html', {'catalogs': catalogs})
+
+
+def getCatalog(request, id_object):
+    catalog = Catalog.objects.get(id=id_object)
+    if request.method == "POST":
+        Category.objects.create(category=request.POST['category'], catalog=catalog)
+    return render(request, 'admin/detailCatalog.html', {'catalog': catalog})
+
+
+def detailCategory(request, id_object):
+    category = Category.objects.get(id=id_object)
+    return render(request, 'admin/category.html', {'category': category})
+
+
+def deleteCategory(request, id_object):
+    obj = Category.objects.get(id=id_object)
+    obj.delete()
+    return HttpResponse('удалено')
+
+
+def deleteCatalog(request, id_object):
+    obj = Catalog.objects.get(id=id_object)
+    obj.delete()
+    return HttpResponseRedirect(reverse('catalogs', ))
+
+
+"""."""
 
 
 def login_admin(request):
@@ -28,11 +72,6 @@ def index(request):
         return HttpResponseRedirect(reverse('login'))
 
 
-def customer(request):
-    all_customer = Customer.objects.all().order_by('-order_date')
-    return render(request, 'admin/customers.html', {'customers': all_customer})
-
-
 def sale(request, id_object):
     if request.method == 'POST':
         prod = Product.objects.get(id=id_object)
@@ -51,16 +90,11 @@ def allProduct(request):
     return render(request, 'admin/Product.html', {'products': products})
 
 
-def productForm(request):
+def productForm(request, id_objects):
     brands = Brand.objects.all()
-    category = Category.objects.all()
+    catalog = Catalog.objects.get(id=id_objects)
+    category = catalog.category_set.all()
     return render(request, 'admin/productForm.html', {'categories': category, 'brands': brands})
-
-
-def all_category(request):
-    category = Category.objects.all()
-
-    return render(request, 'admin/category.html', {'categories': category})
 
 
 def getOnbject(self, request, id_product):
@@ -72,12 +106,6 @@ def deleteBrand(request, id_object):
     brand = Brand.objects.get(id=id_object)
     brand.delete()
     return HttpResponse('удалено')
-
-
-def category_set(request, id_object):
-    category = Category.objects.get(id=id_object)
-    products = category.product_set.all()
-    return render(request, 'admin/category_set.html', {'products': products, 'category': category})
 
 
 class BrandListCreate(View):
@@ -112,16 +140,17 @@ class ProductDeleteCreate(View):
             myfile = request.FILES['photo']
             fs = FileSystemStorage(location='media/album')
             filename = fs.save(myfile.name, myfile)
-            product = Product.objects.create(photo='/album/' + filename,
-                                             title=name,
-                                             description=desc,
-                                             price=price,
-                                             brand=brand,
-                                             color=colors,
-                                             size=size,
-                                             safety=safety,
-                                             interface=interface
-                                             )
+            product = Product.objects.create(
+                title=name,
+                description=desc,
+                price=price,
+                brand=brand,
+                color=colors,
+                size=size,
+                safety=safety,
+                interface=interface
+            )
+            Album.objects.create(photo='/album/' + filename, to_product=product)
             product.category.add(*category)
             return HttpResponse('создано')
 
@@ -129,22 +158,6 @@ class ProductDeleteCreate(View):
         product = Product.objects.get(id=id_object)
         product.delete()
         return HttpResponseRedirect(reverse('products'))
-
-
-class CreateDeleteCategory(View):
-    """создание категории[POST],удаление категории [GET]"""
-
-    def post(self, request):
-        name = request.POST['category']
-        if len(name) > 0:
-            category = Category(category=name)
-            category.save()
-            return HttpResponseRedirect(reverse('category'))
-
-    def get(self, request, id_object):
-        category = Category.objects.get(id=id_object)
-        category.delete()
-        return HttpResponseRedirect(reverse('category'))
 
 
 class DetailProductAndCreateAlbum(View):
@@ -169,3 +182,26 @@ class DetailProductAndCreateAlbum(View):
 def order(request, id_object):
     customer = Customer.objects.get(id=id_object)
     return render(request, 'admin/order.html', {'customer': customer})
+
+
+def customer(request):
+    all_customer = Customer.objects.all().order_by('-order_date')
+    return render(request, 'admin/customers.html', {'customers': all_customer})
+
+
+def deleteCustomer(request, id_object):
+    obj = Customer.objects.get(id=id_object)
+    obj.delete()
+    return HttpResponseRedirect(reverse('customer'))
+
+
+def hit(request, id_object):
+    obj = Product.objects.get(id=id_object)
+    obj.hit = True
+    obj.save()
+
+
+def hits(request):
+    objects = Product.objects.all()
+    objHit = Product.objects.filter(hit=True)
+    return render(request, 'admin/hits.html', {'products': objects, 'hits': objHit})

@@ -1,0 +1,9 @@
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
+<h1>выберите каталог</h1>
+{%for catalog in catalogs%}
+<div><a href="{%url 'productForm' catalog.id%}">{{catalog.title}}</a></div>
+{%endfor%}
+
+{%endblock%}

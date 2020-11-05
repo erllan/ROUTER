@@ -79,7 +79,7 @@
                 {%if sales%}
 
                 <div class="product">
-                    <img src="{{sales.0.photo.url}}" alt="" class="product__img">
+                    <img src="{{sales.0.album_set.all.0.photo.url}}" alt="" class="product__img">
                     <img src="{%static 'images/sale__first.png'%}" alt="" class="sale__img">
                     <p class="sale__text">-{{sales.0.sale}}%</p>
                     <div class="product__desc">
@@ -94,14 +94,15 @@
                     </div>
                     <a href="#popup" class="view" id="view">Быстрый просмотр</a>
                 </div>
-                {% for sales in sale%}
+                {% for sale in sales%}
+                {%if sale.id != sales.0.id%}
                 <div class="product__two">
                     <div class="productTwo">
-                        <img src="{{sale.photo.url}}" alt="" class="product__imgTwo">
+                        <img src="{{sale.album_set.all.0.photo.url}}" alt="" class="product__imgTwo">
                         <img src="{% static 'images/sale__two.png'%}" alt="" class="sale__imgTwo">
                         <p class="sale__textTwo">-{{sale.sale}}%</p>
                         <div class="product__desc">
-                            <p class="product__text product__textTwo">{{sale.1.title}}</p>
+                            <p class="product__text product__textTwo">{{sale.title}}</p>
                             <p class="price__old">{{sale.price}} ₽</p>
                             <div class="price__full price__fullTwo">
                                 <p class="price__new">{{sale.get_sale}} ₽</p>
@@ -111,36 +112,35 @@
                             </div>
                         </div>
                     </div>
+                    {%endif%}
                     {%endfor%}
                     {%endif%}
                 </div>
             </div>
         </div>
-        {% if categories%}
-        {%for category in categories%}
+
         <div class="bestseller">
-            {{category.category}}
+            Хиты продаж
         </div>
         <div class="slideBar">
-            {%for product in category.product_set.all %}
+            {%if hits%}
+            {%for hit in hits%}
             <div class="best__product">
-                <img src="{{product.photo.url}}" alt="" class="bestseller__img">
-                <a href="{%url 'product' product.id %}"><p class="bestseller__title">{{product.title}}</p></a>
-                <p class="bestseller__text">{{product.description}}
+                <img src="{{hit.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
+                <a href="{%url 'product' hit.id%}"><p class="bestseller__title">{{hit.title}}</p></a>
+                <p class="bestseller__text">{{hit.description}}
                 </p>
                 <div class="bestseller__cost">
-                    <p class="bestseller__price">{{product.price}} ₽</p>
-                    <a href="{%url 'addProductToBascet' product.id %}">
+                    <p class="bestseller__price">{{hit.price}} ₽</p>
+                    <a href="{%url 'addProductToBascet' hit.id %}">
                         <button class="plus">+</button>
                     </a>
                 </div>
             </div>
-
             {%endfor%}
+            {%endif%}
         </div>
 
-        {%endfor%}
-        {%endif%}
 
     </div>
 </div>

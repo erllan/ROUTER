@@ -13,4 +13,7 @@ urlpatterns = [
     path('addCount/<int:id_object>', views.addCountOrder, name='addCount'),
     path('minusCount/<int:id_object>', views.minusCountOrder, name='minusCount'),
     path('minusCount/<int:id_object>', views.minusCountOrder, name='minusCount'),
+    path('category/<int:id_object>', views.category_set, name='category'),
+    path('search/', views.Search.as_view(), name='search'),
+
 ]
