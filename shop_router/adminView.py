@@ -48,7 +48,7 @@ def deleteCatalog(request, id_object):
     return HttpResponseRedirect(reverse('catalogs', ))
 
 
-"""."""
+"""User"""
 
 
 def login_admin(request):
@@ -72,34 +72,12 @@ def index(request):
         return HttpResponseRedirect(reverse('login'))
 
 
-def sale(request, id_object):
-    if request.method == 'POST':
-        prod = Product.objects.get(id=id_object)
-        prod.sale = int(request.POST['sale'])
-        prod.save()
-        return HttpResponse('акция')
-
-
 def admin_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
 
 
-def allProduct(request):
-    products = Product.objects.all().order_by('-date')
-    return render(request, 'admin/Product.html', {'products': products})
-
-
-def productForm(request, id_objects):
-    brands = Brand.objects.all()
-    catalog = Catalog.objects.get(id=id_objects)
-    category = catalog.category_set.all()
-    return render(request, 'admin/productForm.html', {'categories': category, 'brands': brands})
-
-
-def getOnbject(self, request, id_product):
-    product = Product.objects.get(id=id_product)
-    return render(request, 'admin/product.html', {'products': product})
+"""Brand"""
 
 
 def deleteBrand(request, id_object):
@@ -120,6 +98,22 @@ class BrandListCreate(View):
         if len(brand_name) > 0:
             brand = Brand.objects.create(brand_name=brand_name)
             return HttpResponseRedirect(reverse('brand'))
+
+
+"""View Product"""
+
+
+# данные формы для создание продукта
+def productForm(request, id_objects):
+    brands = Brand.objects.all()
+    catalog = Catalog.objects.get(id=id_objects)
+    category = catalog.category_set.all()
+    return render(request, 'admin/productForm.html', {'categories': category, 'brands': brands})
+
+
+def allProduct(request):
+    products = Product.objects.all().order_by('-date')
+    return render(request, 'admin/Product.html', {'products': products})
 
 
 class ProductDeleteCreate(View):
@@ -160,23 +154,78 @@ class ProductDeleteCreate(View):
         return HttpResponseRedirect(reverse('products'))
 
 
+def hit(request, id_object):
+    obj = Product.objects.get(id=id_object)
+    obj.hit = True
+    obj.save()
+
+
+def hits(request):
+    objects = Product.objects.all()
+    objHit = Product.objects.filter(hit=True)
+    return render(request, 'admin/hits.html', {'products': objects, 'hits': objHit})
+
+
+def sale(request, id_object):
+    if request.method == 'POST':
+        prod = Product.objects.get(id=id_object)
+        if len(request.POST['sale']) > 0 and len(request.POST['price']) > 0:
+            prod.sale = int(request.POST['sale'])
+            prod.price = int(request.POST['price'])
+            prod.save()
+        return HttpResponseRedirect(reverse('detailProduct', args=(prod.id,)))
+
+
 class DetailProductAndCreateAlbum(View):
     """Деталь продукта [GET],создать албьом [POST]"""
 
     def get(self, request, id_object):
+        brands = Brand.objects.all()
         product = Product.objects.get(id=id_object)
-        return render(request, 'admin/detailProduct.html', {'product': product})
+        category = product.category.all()
+        categories = False
+        if category:
+            catalog = Catalog.objects.get(id=category[0].catalog.id)
+            categories = catalog.category_set.all()
+
+        return render(request, 'admin/detailProduct.html',
+                      {'product': product, 'brands': brands, 'categories': categories})
 
     def post(self, request, id_object):
-        if request.method == "POST":
-            product = Product.objects.get(id=id_object)
-            album = request.FILES['album']
-            if album:
-                myfile = album
-                fs = FileSystemStorage(location='media/album')
-                filename = fs.save(myfile.name, myfile)
-                newAlbum = Album.objects.create(photo='/album/' + filename, to_product=product)
-                return HttpResponse('создано')
+        product = Product.objects.get(id=id_object)
+        product.title = request.POST['title']
+        product.description = request.POST['description']
+        category = Category.objects.filter(pk__in=request.POST.getlist('category'))
+        product.brand = Brand.objects.get(id=request.POST['brand'])
+        product.size = request.POST['size']
+        product.safety = request.POST['safety']
+        product.interface = request.POST['interface']
+        product.colors = request.POST['colors']
+        product.save()
+        test = product.category.all()
+        product.category.remove(*test)
+        product.category.add(*category)
+        return HttpResponseRedirect(reverse('detailProduct', args=(product.id,)))
+
+
+class AddDeleteAlbum(View):
+
+    def post(self, request, id_object):
+        product = Product.objects.get(id=id_object)
+        if request.FILES['album']:
+            myfile = request.FILES['album']
+            fs = FileSystemStorage(location='media/album')
+            filename = fs.save(myfile.name, myfile)
+            Album.objects.create(photo='/album/' + filename, to_product=product)
+            return HttpResponseRedirect(reverse('detailProduct', args=(product.id,)))
+
+    def get(self, request, id_object):
+        album = Album.objects.get(id=id_object)
+        album.delete()
+        return HttpResponseRedirect(reverse('detailProduct', args=(album.to_product.id,)))
+
+
+"""View Order and Customer"""
 
 
 def order(request, id_object):
@@ -193,15 +242,3 @@ def deleteCustomer(request, id_object):
     obj = Customer.objects.get(id=id_object)
     obj.delete()
     return HttpResponseRedirect(reverse('customer'))
-
-
-def hit(request, id_object):
-    obj = Product.objects.get(id=id_object)
-    obj.hit = True
-    obj.save()
-
-
-def hits(request):
-    objects = Product.objects.all()
-    objHit = Product.objects.filter(hit=True)
-    return render(request, 'admin/hits.html', {'products': objects, 'hits': objHit})

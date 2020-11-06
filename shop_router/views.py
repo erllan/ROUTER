@@ -14,29 +14,32 @@ class Search(APIView):
         return HttpResponse(serializer.data)
 
 
-def allCategory():
+def allCatalog():
     catalog = Catalog.objects.all()
     return catalog
 
 
 def index(request):
-    catalog = allCategory()
+    catalog = allCatalog()
     saleProduct = Product.objects.all().order_by('-sale')
     sale = saleProduct.exclude(sale=0)
     hits = saleProduct.filter(hit=True)
-    return render(request, 'shop_router/index.html', {'sales': sale[:3], 'catalogs': catalog, 'hits':hits})
+    return render(request, 'shop_router/index.html', {'sales': sale[:3], 'catalogs': catalog, 'hits': hits})
 
 
 def category_set(request, id_object):
+    catalog = allCatalog()
     category = Category.objects.get(id=id_object)
-    return render(request, 'shop_router/category.html', {'category': category})
+    return render(request, 'shop_router/category.html', {'category': category, 'catalogs': catalog})
 
 
 def basket(request):
-    return render(request, 'shop_router/basket.html')
+    catalog = allCatalog()
+    return render(request, 'shop_router/basket.html', {'catalogs': catalog})
 
 
 def form(request):
+    catalog = allCatalog()
     testOrder = request.COOKIES.get('Order')
     if testOrder:
         if request.method == 'POST':
@@ -54,7 +57,7 @@ def form(request):
                 Order.objects.create(product=product, from_customer=customer,
                                      order_quantities=items['count'])
             return HttpResponse('создано')
-    return render(request, 'shop_router/form.html')
+    return render(request, 'shop_router/form.html', {'catalogs': catalog})
 
 
 def addCountOrder(request, id_object):
@@ -85,6 +88,7 @@ def minusCountOrder(request, id_object):
 
 
 def order(request):
+    catalog = allCatalog()
     order_data = request.COOKIES.get('Order')
     if order_data:
         des = order_data.replace("'", '"')
@@ -103,8 +107,8 @@ def order(request):
 
         return render(request, 'shop_router/order.html',
                       {'product': order_product, 'counts': productCouunts, 'total': total - allSale,
-                       'allSale': allSale})
-    return render(request, 'shop_router/basket.html')
+                       'allSale': allSale, 'catalogs': catalog})
+    return render(request, 'shop_router/basket.html', {'catalogs': catalog})
 
 
 def addProductToBascet(request, id_object, count=1):
@@ -124,14 +128,18 @@ def addProductToBascet(request, id_object, count=1):
 
 
 def product(request, id_obj):
+    catalog = allCatalog()
     prod = Product.objects.get(id=id_obj)
     recoment = prod.brand.product_set.all()
-    return render(request, 'shop_router/product.html', {'product': prod, 'recoment': recoment})
+    return render(request, 'shop_router/product.html', {'product': prod, 'recoment': recoment, 'catalogs': catalog})
 
 
-def routers(request):
-    return render(request, 'shop_router/routers.html')
+def routers(request, id_object):
+    catalog = allCatalog()
+    catalog_set = Catalog.objects.get(id=id_object)
+    return render(request, 'shop_router/routers.html', {'catalogs': catalog, 'catalog_set': catalog_set})
 
 
 def about(request):
-    return render(request, 'shop_router/about.html')
+    catalog = allCatalog()
+    return render(request, 'shop_router/about.html', {'catalogs': catalog})

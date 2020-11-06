@@ -21,6 +21,7 @@ urlpatterns = [
     path('category/<int:id_object>', adminView.detailCategory, name='detailCategory'),
     path('deleteCategory/<int:id_object>', adminView.deleteCategory, name='deleteCategory'),
     path('deleteCatalog/<int:id_object>', adminView.deleteCatalog, name='deleteCatalog'),
+    path('album/<int:id_object>', adminView.AddDeleteAlbum.as_view(), name='addAlbum'),
     path('customer/<int:id_object>', adminView.deleteCustomer, name='deleteCustomer'),
     path('hit/<int:id_object>', adminView.hit, name='addToHit'),
     path('hit/', adminView.hits, name='hits'),

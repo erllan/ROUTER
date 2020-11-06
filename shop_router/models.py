@@ -38,11 +38,10 @@ class Product(models.Model):
     hit = models.BooleanField(default=False)
     sale = models.IntegerField('Скидка в процентах', blank=True, default=0)
 
-
-def get_sale(self):
-    proc = int((self.sale * self.price) / 100)
-    price = self.price - proc
-    return price
+    def get_sale(self):
+        proc = int((self.sale * self.price) / 100)
+        price = self.price - proc
+        return price
 
 
 def __str__(self):

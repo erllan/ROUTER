@@ -11,7 +11,7 @@
             {%if product%}
             {%for prod in product%}
             <div class="order__wrap">
-                <img src="{{prod.photo.url}}" alt="ORDER" class="order__img">
+                <img src="{{prod.album_set.all.0.photo.url}}" alt="ORDER" class="order__img">
                 {% if prod.sale > 0%}
                 <img src="{%static 'images/sale__two.png'%}" alt="" class="sale__imgTwo sale__img-order">
                 <p class="sale__textTwo">-{{prod.sale}}%</p>
@@ -49,7 +49,7 @@
             {%endfor%}
             <div class="order__checkout">
                 <div class="order__sale">
-                  <p class="order__sale-sale">Скидка: {{allSale}} ₽</p>
+                    <p class="order__sale-sale">Скидка: {{allSale}} ₽</p>
                 </div>
                 <div class="total">
                     <p class="order__total-title">
