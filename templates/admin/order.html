@@ -2,45 +2,34 @@
 {%load static%}
 {%block body%}
 {%if customer%}
-<div class="container-fluid">
-    <div class="customer">
-        <h4>Дата заказа:{{customer.order_date}}</h4>
-        <h4>Имя:{{customer}}</h4>
-        <h4>email:{{customer.Email}}</h4>
-        <h4>Коментария:</h4>
-        <p>{{customer.Comment}}</p>
-    </div>
-    <div class='orders'>
-        <h3 class="text-center" >Заказы</h3>
-        {%for order in customer.order_set.all%}
-        <a href="{%url 'detailProduct' order.product.id%}">
-        <div class="order">
-        <div class="order__wrap">
-            <div class="row">
-                <img src="{{order.product.photo.url}}" alt="ORDER" class="order__img" height="150" width='150'>
-                <div class="quantity">
-                    <p class="order__product-text">{{order.product.title}}</p>
-                    <div class="quantity__block">
-                        количество: {{order.order_quantities}}
-                    </div>
-                    <p class="price__order">
-                        цена: {{order.product.price}}
-                    </p>
-                </div>
+
+
+
+
+<div class="customer">
+    <div>Дата заказа:{{customer.order_date}}</div>
+    <div>Имя:{{customer}}</div>
+    <div>email:{{customer.Email}}</div>
+    <div>Коментария:</div>
+    <div>{{customer.Comment}}</div>
+</div>
+<div class='orders'>
+    <div class="list-group-item active"><h5 class="text-center">Заказы</h5></div>
+    {%for order in customer.order_set.all%}
+    <div class="product__two">
+        <div>
+            <img src="{{order.album_set.all.0.photo.url}}" alt="" class="product__imgTwo">
+            <div >
+                <p >{{order.descriptions}}</p>
+                <p class="price__old">{{order.price}} ₽</p>
             </div>
         </div>
-        </div>
-        </a>
-        <hr>
-        <hr>
-        {%endfor%}
-        <a href="{%url 'deleteCustomer' customer.id%}">удалить</a>
-        {%endif%}
     </div>
+    {%endfor%}
+    <a href="{%url 'deleteCustomer' customer.id%}">удалить</a>
+    {%endif%}
+
 </div>
-<style>
-    .order{
-    background-color: lightsteelblue;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);}
-</style>
+<script src="{%static 'js/slick.min.js'%}"></script>
+<script src="{%static 'js/index.js'%}"></script>
 {%endblock%}

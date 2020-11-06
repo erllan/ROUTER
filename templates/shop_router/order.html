@@ -19,9 +19,11 @@
                 <div class="quantity">
                     <p class="order__product-text">{{prod.title}}</p>
                     <div class="quantity__block">
+
                         <button data-action="{% url 'minusCount' prod.id%}" class="quantity__button minus-btn">
                             -
                         </button>
+
                         <span class='count'>
                             {%for k,v in counts.items%}
                             {%if prod.id == k%}
@@ -33,6 +35,7 @@
                         <button data-action="{% url 'addCount' prod.id%}" class="quantity__button plus-btn">
                             +
                         </button>
+
                     </div>
                     {% if prod.sale > 0%}
                     <p class="price__order">

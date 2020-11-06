@@ -38,7 +38,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Каталог
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             {% if catalogs%}
                             {%for catalog in catalogs%}
                             <a class="dropdown-item" href="{%url 'routers' catalog.id%}">{{catalog.title}}</a>

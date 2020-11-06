@@ -1,23 +1,31 @@
 {%extends 'base_admin.html'%}
 {%load static%}
 {%block body%}
-<h3 class="text-center" >Модель</h3>
-<div class="container-fluid">
+
+<div class="list-group-item list-group-item-action active">
+    <h3 class="text-center"><a href="#" class="list-group-item list-group-item-action active">Модель</a></h3>
     <form action="{%url 'brand'%}" method="post" class="text-right">
         {% csrf_token %}
         <input type="text" name="brand">
         <input type="submit">
     </form>
-
-    {%if brands%}
-    {%for brand in brands %}
-
-    <div>
-        <h3>{{brand.brand_name}}</h3>
-        <a href="{%url 'deleteBrand' brand.id%}"> удалить</a>
-    </div>
-    {%endfor%}
-    {%endif%}
 </div>
+{%if brands%}
+{%for brand in brands %}
+
+<div class="list-group-item list-group-item-action">
+    <a href="">{{brand.brand_name}}
+        <div class="text-right">
+            <a href="{%url 'deleteBrand' brand.id%}">
+                <button type="button" class="btn btn-danger btn-sm">удалить</button>
+            </a>
+        </div>
+    </a>
+
+
+</div>
+{%endfor%}
+{%endif%}
+
 
 {%endblock%}
