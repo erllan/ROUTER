@@ -4,6 +4,7 @@ import json
 from django.http import HttpResponse, HttpResponseRedirect
 from .serializers import ProductSerializers
 from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 class Search(APIView):
@@ -11,7 +12,7 @@ class Search(APIView):
         search = request.GET['title']
         result = Product.objects.filter(title__icontains=search)
         serializer = ProductSerializers(result, many=True)
-        return HttpResponse(serializer.data)
+        return Response(serializer.data)
 
 
 def allCatalog():

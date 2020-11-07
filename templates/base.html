@@ -33,11 +33,12 @@
             <div class="nav">
                 <div class="drop__block">
                     <div class="dropdown">
-                        <button style="background-color: white; color: black;border: white"
-                                class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div style="background-color: white; color: black;border: white"
+                             class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Каталог
-                        </button>
+
+                        </div>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             {% if catalogs%}
                             {%for catalog in catalogs%}
@@ -45,6 +46,7 @@
                             {%endfor%}
                             {%endif%}
                         </div>
+
                     </div>
                     <a href="{%url 'about'%}" class="about__company">О компании</a>
                 </div>
@@ -56,14 +58,19 @@
                     <div id="search" class="search-box search">
                         <a href="#"><img src="{%static 'images/search.png'%}" alt="" class="search__img" onclick="go()"></a>
                     </div>
-                    <div class="search__input" id="search__input">
-                        <form action="{%url 'search'%}" method="get">
-                            <input type="text" name="title" class="search__input-text" placeholder="Поиск по сайту">
 
-                            <img src="{%static 'images/cancel.png'%}" alt="CLOSE" class="search__input-close"
-                                 onclick="closeSearch()">
-                        </form>
-                    </div>
+                    <form method="get" autocomplete="off" class="search__input" id="search__input"
+                          style="z-index: 1;background-color: white;">
+                        <input type="text" name="title" class="search__input-text" placeholder="Поиск по сайту">
+
+                        <img src="{%static 'images/cancel.png'%}" alt="CLOSE" class="search__input-close"
+                             onclick="closeSearch()">
+                        <div class="result_search">
+
+                        </div>
+                    </form>
+
+
                     <div class="trash">
                         <a href="{%url 'order'%}"><img src="{%static 'images/trash.png'%}" alt="TRASH"
                                                        class="trash__logo"></a>
@@ -73,8 +80,11 @@
         </div>
     </div>
     <div class="input__block-mobile">
-        <input type="text" class="search__mobile" placeholder="Поиск по сайту">
+        <input type="text" placeholder="Поиск по сайту" class="search__mobile">
         <a href="#" class="search__img-mobile"><img src="{%static 'images/search.png'%}" alt="" srcset=""></a>
+        <div class="result_search">
+
+        </div>
     </div>
     <div class="nav-mobile">
         <label for="toggle" class="toggle">
@@ -92,8 +102,8 @@
             </div>
         </div>
     </div>
-
 </div>
+
 {%block body%}
 
 
@@ -128,7 +138,63 @@
     $(document).ready(function(){
    orderPlus()
    orderMinus()
+$('.search__input-text').on('input',function(){
+let searchText = $(this).val()
+console.log(searchText)
+if(searchText.length >= 3){
+$.get('/search',{'title':searchText},function(response){
+if(response.length){
+$('.result_search').html('')
+$.each(response,function(k,e){
+var div = $(`<div><a href="product/${e.id}" style = 'color:black'>${e.title}</a></div>`)
+$('.result_search').append(div)
 })
+
+}
+
+})
+}
+if(searchText.length<3){
+	$('.result_search').empty()
+}
+
+})
+
+$('.search__mobile').on('input',function(){
+let searchText = $(this).val()
+console.log(searchText)
+if(searchText.length >= 3){
+$.get('/search',{'title':searchText},function(response){
+if(response.length){
+$('.result_search').html('')
+$.each(response,function(k,e){
+var div = $(`<div><a href="product/${e.id}" style = 'color:black'>${e.title}</a></div>`).css({'color':'black','padding':'1%'})
+$('.result_search').append(div)
+})
+
+}
+
+})
+}
+if(searchText.length<3){
+	$('.result_search').empty()
+}
+
+})
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

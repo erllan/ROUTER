@@ -23,3 +23,6 @@ count.text(Number(count.text()) - Number(1))
 })
 })
 }
+
+
+
