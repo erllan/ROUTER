@@ -20,17 +20,19 @@
                     <p class="order__product-text">{{prod.title}}</p>
                     <div class="quantity__block">
 
+
                         <button data-action="{% url 'minusCount' prod.id%}" class="quantity__button minus-btn">
                             -
                         </button>
-
-                        <span class='count'>
+                        <a class="number__order">
+                            <span class="count">
                             {%for k,v in counts.items%}
                             {%if prod.id == k%}
                             {{v}}
                             {%endif%}
                             {%endfor%}
-                        </span>
+                            </span>
+                        </a>
 
                         <button data-action="{% url 'addCount' prod.id%}" class="quantity__button plus-btn">
                             +

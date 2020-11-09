@@ -56,8 +56,14 @@
                             {{product.price}}₽
                         </p>
                         <div class="on__trash">
-                            <a href="{%url 'addProductToBascet' product.id %}" class="onTrash">
+
+
+                            <a href="{%url 'addProductToBascet' product.id %}" class="onTrash" >
+                                {%if in_basket %}
+                                уже в корзине
+                                {%else%}
                                 Добавить в корзину
+                                {% endif%}
                             </a>
                         </div>
                     </div>
@@ -71,19 +77,33 @@
         <p class="router__title-block">Рекомендуемые товары</p>
         <div class="slideBar ">
             {%for rec in recoment%}
-            <a href="{%url 'product' rec.id %}">
-            <div class="best__product">
-                <img src="{{rec.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
-                <p class="product__price">
-                    {{rec.price}} ₽
-                </p>
-                <p class="about__product">
-                    {{product.title}}
-                </p>
-            </div>
-                </a>
+            <a href="{%url 'product' rec.id %}" style="color:black">
+                <div class="best__product">
+                    <img src="{{rec.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
+                    <p class="product__price" style="color:black">
+                        {{rec.price}} ₽
+                    </p>
+                    <p class="about__product">
+                        {{product.title}}
+                    </p>
+                </div>
+            </a>
             {%endfor%}
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function(){
+$('a.onTrash').click(function(event){
+event.preventDefault()
+var url = $(this).attr('href')
+$.get(url,function(data){
+if(data.status === 200){
+$('.onTrash').html('уже в корзине')
+}
+})
+})
+    })
+
+</script>
 {%endblock%}

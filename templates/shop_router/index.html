@@ -87,9 +87,14 @@
                         <p class="price__old">{{sales.0.price}} ₽</p>
                         <div class="price__full">
                             <p class="price__new">{{sales.0.get_sale}} ₽</p>
-                            <a href="{%url 'addProductToBascet' sales.0.id %}">
-                            <button class="plus">+</button>
+                            {%if sales.0.id in in_basket%}
+                            <button class="plus">&#10003</button>
+                            {%else%}
+                            <a class="addToCard" href="{%url 'addProductToBascet' sales.0.id %}">
+
+                                <button class="plus">+</button>
                             </a>
+                            {%endif%}
                         </div>
                     </div>
                 </div>
@@ -105,9 +110,13 @@
                             <p class="price__old">{{sale.price}} ₽</p>
                             <div class="price__full price__fullTwo">
                                 <p class="price__new">{{sale.get_sale}} ₽</p>
-                                <a href="{%url 'addProductToBascet' sale.id %}">
-                                <button class="plus">+</button>
+                                {%if sale.id in in_basket%}
+                                <button class="plus">&#10003</button>
+                                {%else%}
+                                <a class="addToCard" href="{%url 'addProductToBascet' sale.id %}">
+                                    <button class="plus">+</button>
                                 </a>
+                                {%endif%}
                             </div>
                         </div>
                     </div>
@@ -131,9 +140,13 @@
                 </p>
                 <div class="bestseller__cost">
                     <p class="bestseller__price">{{hit.price}} ₽</p>
-                    <a href="{%url 'addProductToBascet' hit.id %}">
+                    {%if hit.id in in_basket%}
+                    <button class="plus">&#10003</button>
+                    {%else%}
+                    <a class="addToCard" href="{%url 'addProductToBascet' hit.id %}">
                         <button class="plus">+</button>
                     </a>
+                    {%endif%}
                 </div>
             </div>
             {%endfor%}
@@ -244,4 +257,25 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+    $('a.addToCard').click(function(event){
+event.preventDefault()
+var url = $(this).attr('href')
+var iconPlus = $(this).find('.plus')
+$.get(url,function(data){
+if(data.status === 200){
+iconPlus.html('	&#10003;')
+}
+})
+})
+    })
+
+
+
+
+
+
+
+</script>
 {%endblock%}

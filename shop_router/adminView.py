@@ -67,7 +67,8 @@ def login_admin(request):
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, 'admin/index.html')
+        all_customer = Customer.objects.all().order_by('-order_date')
+        return render(request, 'admin/index.html', {'customers': all_customer})
     else:
         return HttpResponseRedirect(reverse('login'))
 

@@ -25,7 +25,15 @@ def index(request):
     saleProduct = Product.objects.all().order_by('-sale')
     sale = saleProduct.exclude(sale=0)
     hits = saleProduct.filter(hit=True)
-    return render(request, 'shop_router/index.html', {'sales': sale[:3], 'catalogs': catalog, 'hits': hits})
+    cookie = request.COOKIES.get('Order')
+    in_basket = []
+    if cookie:
+        des = cookie.replace("'", '"')
+        order_id = json.loads(des)
+        for items in order_id['data']:
+            in_basket.append(items['id'])
+    return render(request, 'shop_router/index.html',
+                  {'sales': sale[:3], 'catalogs': catalog, 'hits': hits, 'in_basket': in_basket})
 
 
 def category_set(request, id_object):
@@ -113,32 +121,52 @@ def order(request):
 
 
 def addProductToBascet(request, id_object, count=1):
+    res = {'status': 200}
     if request.COOKIES.get("Order"):
-        response = HttpResponse("ваш заказ")
+        response = HttpResponse(json.dumps(res), content_type="application/json")
         orderCookie = request.COOKIES.get("Order")
         des = orderCookie.replace("'", '"')
         dataCookie = json.loads(des)
         dataCookie["data"].append({"id": id_object, "count": count})
         response.set_cookie("Order", dataCookie, max_age=3600)
-
     else:
         data = json.dumps({"data": [{"id": id_object, "count": count}]})
-        response = HttpResponse("ваш заказ добавлен в карзину")
+        response = HttpResponse(json.dumps(res), content_type="application/json")
         response.set_cookie("Order", data, max_age=3600)
     return response
 
 
 def product(request, id_obj):
     catalog = allCatalog()
+    order_data = request.COOKIES.get('Order')
+    in_basket = 0
     prod = Product.objects.get(id=id_obj)
+    if order_data:
+        des = order_data.replace("'", '"')
+        order_id = json.loads(des)
+        count = 0
+        for item in order_id['data']:
+            if item['id'] == id_obj:
+                count += 1
+        if count > 0:
+            in_basket = 1
     recoment = prod.brand.product_set.all()
-    return render(request, 'shop_router/product.html', {'product': prod, 'recoment': recoment, 'catalogs': catalog})
+    return render(request, 'shop_router/product.html',
+                  {'product': prod, 'recoment': recoment, 'catalogs': catalog, 'in_basket': in_basket})
 
 
 def routers(request, id_object):
     catalog = allCatalog()
     catalog_set = Catalog.objects.get(id=id_object)
-    return render(request, 'shop_router/routers.html', {'catalogs': catalog, 'catalog_set': catalog_set})
+    cookie = request.COOKIES.get('Order')
+    in_basket = []
+    if cookie:
+        des = cookie.replace("'", '"')
+        order_id = json.loads(des)
+        for items in order_id['data']:
+            in_basket.append(items['id'])
+    return render(request, 'shop_router/routers.html',
+                  {'catalogs': catalog, 'catalog_set': catalog_set, 'in_basket': in_basket})
 
 
 def about(request):

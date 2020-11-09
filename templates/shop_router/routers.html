@@ -12,23 +12,46 @@
                 {{category.category}}
                 {%endif%}
             </p>
-            {%for product in category.product_set.all%}
+
             <div class="slideBar slideBar__router">
+                {%for product in category.product_set.all%}
                 <div class="best__product">
                     <img src="{{product.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
                     <p class="bestseller__title">{{product.title}}</p>
                     <p class="bestseller__text">{{product.description}}</p>
                     <div class="bestseller__cost">
                         <p class="bestseller__price">{{product.price}} ₽</p>
-                        <button class="plus">+</button>
+                        {%if product.id in in_basket%}
+                        <button class="plus">&#10003</button>
+                        {%else%}
+                        <a class="addToCard" href="{% url 'addProductToBascet' product.id%}">
+                            <button class="plus">+</button>
+                        </a>
+                        {%endif%}
                     </div>
                 </div>
-
+                {%endfor%}
             </div>
-            {%endfor%}
+
         </div>
         {%endfor%}
-    </div>
 
+    </div>
 </section>
+<script>
+        $(document).ready(function(){
+    $('a.addToCard').click(function(event){
+event.preventDefault()
+var url = $(this).attr('href')
+var iconPlus = $(this).find('.plus')
+$.get(url,function(data){
+if(data.status === 200){
+iconPlus.html('	&#10003;')
+}
+})
+})
+    })
+
+
+</script>
 {%endblock%}
