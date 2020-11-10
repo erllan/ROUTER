@@ -2,15 +2,15 @@
 {%load static%}
 {%block body%}
 {%if catalog%}
+<h4 class="text-center">{{catalog.title}}</h4>
+<div class="text-center" >
+    <form action="{%url 'getCatalog' catalog.id%}" method="post">
+        {%csrf_token%}
+        <input type="text" name='category'>
+        <input type="submit" value="создать">
+    </form>
+</div>
 <ul class="list-group">
-    <li class="list-group-item active"><h1 class="text-center">{{catalog.title}}</h1></li>
-    <li class="list-group-item active">
-        <form action="{%url 'getCatalog' catalog.id%}" method="post">
-            {%csrf_token%}
-            <input type="text" name='category'>
-            <input type="submit" value="создать">
-        </form>
-    </li>
     {%for category in catalog.category_set.all%}
     <li class="list-group-item"><a href="{%url 'detailCategory' category.id%}">{{category.category}}</a>
 

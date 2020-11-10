@@ -65,7 +65,7 @@ def form(request):
                 product = Product.objects.get(id=int(items['id']))
                 Order.objects.create(product=product, from_customer=customer,
                                      order_quantities=items['count'])
-            return HttpResponse('создано')
+            return HttpResponseRedirect(reverse('index',))
     return render(request, 'shop_router/form.html', {'catalogs': catalog})
 
 

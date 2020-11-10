@@ -3,26 +3,36 @@
 {%block body%}
 {%if products%}
 {%for product in products%}
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom: 2%">
+    <div class="border border-secondary">
+        <a href="{%url 'detailProduct' product.id%}">
+            <div class="product">
+                <img src="{{product.album_set.all.0.photo.url}}" alt="" class="img-thumbnail">
 
-    <div class="d-block p-2 bg-dark text-white">
-        <div class="container-fluid">
-            <a href="{%url 'detailProduct' product.id%}">
-                <span class="d-block p-2 bg-primary text-white">{{product.title}}</span>{{product.title}}
-                <div class="bestseller__cost">
-                    <p class="bestseller__price">{{product.price}}₽</p>
+                <div class="container-fluid">
+
+                        <div>{{product.title}}</div>
+
+                        <div>{{product.price}}₽</div>
+
                 </div>
-            </a>
-        </div>
+            </div>
+        </a>
     </div>
-    <span  class="d-block p-2 text-white" ></span>
-
 </div>
+
+
 {%endfor%}
 {%else%}
 <h3>пока нет продуктов</h3>
 {%endif%}
 <style>
+.product img{
+        width: 20%;
+    }
+
+
+
 
 
 </style>

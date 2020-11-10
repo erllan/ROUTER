@@ -13,7 +13,6 @@ urlpatterns = [
     path('brand/<int:id_object>', adminView.deleteBrand, name='deleteBrand'),
     path('product/<int:id_object>', adminView.DetailProductAndCreateAlbum.as_view(), name='detailProduct'),
     path('order/<int:id_object>', adminView.order, name='order'),
-    path('customer/', adminView.customer, name='customer'),
     path('addSale/<int:id_object>', adminView.sale, name='addSale'),
     path('create/', adminView.catalog, name='catalog'),
     path('catalogs/', adminView.createCatalog, name='catalogs'),

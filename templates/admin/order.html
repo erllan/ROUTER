@@ -2,34 +2,45 @@
 {%load static%}
 {%block body%}
 {%if customer%}
-
-
-
-
-<div class="customer">
-    <div>Дата заказа:{{customer.order_date}}</div>
-    <div>Имя:{{customer}}</div>
-    <div>email:{{customer.Email}}</div>
-    <div>Коментария:</div>
-    <div>{{customer.Comment}}</div>
-</div>
-<div class='orders'>
-    <div class="list-group-item active"><h5 class="text-center">Заказы</h5></div>
-    {%for order in customer.order_set.all%}
-    <div class="product__two">
-        <div>
-            <img src="{{order.album_set.all.0.photo.url}}" alt="" class="product__imgTwo">
-            <div >
-                <p >{{order.descriptions}}</p>
-                <p class="price__old">{{order.price}} ₽</p>
-            </div>
-        </div>
+<div class="container-fluid">
+    <div class="customer">
+        <div>Дата заказа:{{customer.order_date}}</div>
+        <div>Имя:{{customer}}</div>
+        <div>email:{{customer.Email}}</div>
+        <div>Коментария:</div>
+        <div>{{customer.Comment}}</div>
     </div>
-    {%endfor%}
-    <a href="{%url 'deleteCustomer' customer.id%}">удалить</a>
-    {%endif%}
-
 </div>
+<a href="{%url 'deleteCustomer' customer.id%}">удалить</a>
+<div><h5 class="text-center">Заказы</h5></div>
+{%for order in customer.order_set.all%}
+<div class="container-fluid" style="margin-bottom: 2%">
+    <div class="border border-secondary">
+        <a href="{%url 'detailProduct' order.product.id%}">
+            <div class="product">
+                <img src="{{order.product.album_set.all.0.photo.url}}" alt="" class="img-thumbnail">
+                <div class="container-fluid">
+                    <div class="text-center">{{order.product.title}}</div>
+                    <div>
+                        <div>цена: {{order.product.price}}₽</div>
+                        <div>количество: {{order.order_quantities}}ш</div>
+                    </div>
+
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+{%endfor%}
+{%endif%}
+<style>
+    .product img{
+        width: 20%;
+    }
+
+
+
+</style>
 <script src="{%static 'js/slick.min.js'%}"></script>
 <script src="{%static 'js/index.js'%}"></script>
 {%endblock%}

@@ -234,12 +234,7 @@ def order(request, id_object):
     return render(request, 'admin/order.html', {'customer': customer})
 
 
-def customer(request):
-    all_customer = Customer.objects.all().order_by('-order_date')
-    return render(request, 'admin/customers.html', {'customers': all_customer})
-
-
 def deleteCustomer(request, id_object):
     obj = Customer.objects.get(id=id_object)
     obj.delete()
-    return HttpResponseRedirect(reverse('customer'))
+    return HttpResponseRedirect(reverse('index'))

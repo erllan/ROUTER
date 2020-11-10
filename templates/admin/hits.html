@@ -1,15 +1,25 @@
 {%extends 'base_admin.html'%}
 {%load static%}
 {%block body%}
-{%for hit in hits%}
-{{hit.title}}
-{%endfor%}
-<H1>ПРОБЕЛ</H1>
-{%for product in products%}
-{%if product.hit != True%}
-<div><a href="{%url 'addToHit' product.id %}">{{product.title}}</a></div>
+<div class="container-fluid">
+    <h4 class="text-center">Хиты</h4>
+    <div>
+        <ul class="list-group">
+            {%for hit in hits%}
 
-{%endif%}
-{%endfor%}
+            <li class="list-group-item"><a href="{%url 'detailProduct' hit.id%}">{{hit.title}}</a></li>
+            {%endfor%}
+        </ul>
+    </div>
+    <H4 class="text-center">Все товары</H4>
+    <ul class="list-group">
+        {%for product in products%}
+        {%if product.hit != True%}
+        <li class="list-group-item">{{product.title}}<a href="{%url 'addToHit' product.id %}">сделать хитом </a></li>
+
+        {%endif%}
+        {%endfor%}
+    </ul>
+</div>
 
 {%endblock%}
