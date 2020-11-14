@@ -83,7 +83,9 @@
                     <img src="{%static 'images/sale__first.png'%}" alt="" class="sale__img">
                     <p class="sale__text">-{{sales.0.sale}}%</p>
                     <div class="product__desc">
-                        <p class="product__text">{{sales.0.title}}</p>
+                        <a href="{%url 'product' sales.0.id%}">
+                            <p class="product__text">{{sales.0.title}}</p>
+                        </a>
                         <p class="price__old">{{sales.0.price}} ₽</p>
                         <div class="price__full">
                             <p class="price__new">{{sales.0.get_sale}} ₽</p>
@@ -106,7 +108,9 @@
                         <img src="{% static 'images/sale__two.png'%}" alt="" class="sale__imgTwo">
                         <p class="sale__textTwo">-{{sale.sale}}%</p>
                         <div class="product__desc">
+                            <a href="{%url 'product' sale.id%}">
                             <p class="product__text product__textTwo">{{sale.title}}</p>
+                            </a>
                             <p class="price__old">{{sale.price}} ₽</p>
                             <div class="price__full price__fullTwo">
                                 <p class="price__new">{{sale.get_sale}} ₽</p>
