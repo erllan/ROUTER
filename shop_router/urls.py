@@ -15,5 +15,6 @@ urlpatterns = [
     path('minusCount/<int:id_object>', views.minusCountOrder, name='minusCount'),
     path('category/<int:id_object>', views.category_set, name='category'),
     path('search/', views.Search.as_view(), name='search'),
+    path('category/<int:id>/children', views.getChildrenCategories, name='categoryChildren'),
 
 ]

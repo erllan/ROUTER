@@ -107,14 +107,14 @@ class BrandListCreate(View):
 # данные формы для создание продукта
 def productForm(request, id_objects):
     brands = Brand.objects.all()
-    catalog = Catalog.objects.get(id=id_objects)
-    category = catalog.category_set.all()
+    category_set = Category.objects.get(id=id_objects)
+    category = category_set.set_category.all()
     return render(request, 'admin/productForm.html', {'categories': category, 'brands': brands})
 
 
 def allProduct(request):
     products = Product.objects.all().order_by('-date')
-    return render(request, 'admin/Product.html', {'products': products})
+    return render(request, 'admin/product.html', {'products': products})
 
 
 class ProductDeleteCreate(View):
@@ -186,8 +186,8 @@ class DetailProductAndCreateAlbum(View):
         category = product.category.all()
         categories = False
         if category:
-            catalog = Catalog.objects.get(id=category[0].catalog.id)
-            categories = catalog.category_set.all()
+            c = Category.objects.get(id=category[0].children_category.id)
+            categories = c.set_category.all()
 
         return render(request, 'admin/detailProduct.html',
                       {'product': product, 'brands': brands, 'categories': categories})
@@ -215,7 +215,7 @@ class AddDeleteAlbum(View):
         product = Product.objects.get(id=id_object)
         if request.FILES['album']:
             myfile = request.FILES['album']
-            fs = FileSystemStorage(location='media/album')
+            fs = FileSystemStorage(location='public_html/media/album')
             filename = fs.save(myfile.name, myfile)
             Album.objects.create(photo='/album/' + filename, to_product=product)
             return HttpResponseRedirect(reverse('detailProduct', args=(product.id,)))
@@ -238,3 +238,23 @@ def deleteCustomer(request, id_object):
     obj = Customer.objects.get(id=id_object)
     obj.delete()
     return HttpResponseRedirect(reverse('index'))
+
+
+def set_category(request, id_object):
+    obj = Catalog.objects.get(id=id_object)
+    category = obj.category_set.all()
+    return render(request, 'admin/category_set.html', {'category': category})
+
+
+class In_category(View):
+    def get(self, request, id_object):
+        obj = Category.objects.get(id=id_object)
+        category = obj.set_category.all()
+        return render(request, 'admin/in_category.html', {'categories': category, 'category_title': obj})
+
+    def post(self, request, id_object):
+        category = Category.objects.get(id=id_object)
+        obj = Category.objects.create(category=request.POST['category'])
+        category.set_category.add(obj)
+
+        return HttpResponse('да')

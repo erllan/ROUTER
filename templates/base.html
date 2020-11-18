@@ -15,11 +15,6 @@
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-            crossorigin="anonymous"></script>
     <title>{%block title%}{%endblock%}</title>
 </head>
 
@@ -31,25 +26,44 @@
                 <a href="/"> <img src="{%static 'images/logo.png'%}" alt="LOGO" class="logo__img"></a>
             </div>
             <div class="nav">
+
+
                 <div class="drop__block">
                     <div class="dropdown">
-                        <div style="background-color: white; color: black;border: white"
-                             class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Каталог
-
+                        <a href="#" class="dropbtn">Каталог</a>
+                        <img class="polygon" src="{%static 'images/Polygon.png'%}" alt="" srcset="">
+                        <div class="dropdown-content">
+                            <div class="dropdown__routers">
+                                <a href="#" class="drop-link ">Роутеры и модемы</a>
+                                <div class="dropdown-content-routers">
+                                    <a href="order.html" class="drop-link drop__link__rout">Комплектующие</a>
+                                    <a href="product.html" class=" drop__link-routers "> DSL-модемы
+                                        -маршрутизаторы</a>
+                                    <a href="form.html" class=" drop__link-routers "> Кабельные модемы и
+                                        маршрутизаторы</a>
+                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
+                                        PON SFU и HGU</a>
+                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
+                                        PON SFU и HGU</a>
+                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
+                                        PON SFU и HGU</a>
+                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
+                                        PON SFU и HGU</a>
+                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
+                                        PON SFU и HGU</a>
+                                </div>
+                            </div>
+                            <a href="order.html" class="drop-link">WiFi & CPE</a>
+                            <a href="order.html" class="drop-link">WiFi & CPE</a>
+                            <a href="order.html" class="drop-link">WiFi & CPE</a>
+                            <a href="order.html" class="drop-link">WiFi & CPE</a>
+                            <a href="order.html" class="drop-link">WiFi & CPE</a>
                         </div>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            {% if catalogs%}
-                            {%for catalog in catalogs%}
-                            <a class="dropdown-item" href="{%url 'routers' catalog.id%}">{{catalog.title}}</a>
-                            {%endfor%}
-                            {%endif%}
-                        </div>
-
                     </div>
-                    <a href="{%url 'about'%}" class="about__company">О компании</a>
+                    <a href="about.html" class="about__company">О компании</a>
                 </div>
+
+
                 <div class="menu__right">
                     <div class="contact" id="contact">
                         <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
@@ -182,7 +196,12 @@ if(searchText.length<3){
 
 })
 
+$.get('/category/21/children',function(data){
+
 })
+
+})
+
 
 
 

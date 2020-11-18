@@ -109,7 +109,7 @@
                         <p class="sale__textTwo">-{{sale.sale}}%</p>
                         <div class="product__desc">
                             <a href="{%url 'product' sale.id%}">
-                            <p class="product__text product__textTwo">{{sale.title}}</p>
+                                <p class="product__text product__textTwo">{{sale.title}}</p>
                             </a>
                             <p class="price__old">{{sale.price}} ₽</p>
                             <div class="price__full price__fullTwo">
@@ -130,12 +130,12 @@
                 </div>
             </div>
         </div>
-
+        {%if hits%}
         <div class="bestseller">
             Хиты продаж
         </div>
         <div class="slideBar">
-            {%if hits%}
+
             {%for hit in hits%}
             <div class="best__product">
                 <img src="{{hit.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
@@ -154,9 +154,36 @@
                 </div>
             </div>
             {%endfor%}
-            {%endif%}
-        </div>
 
+        </div>
+        {%endif%}
+        {%if categories%}
+        {% for category in categories%}
+        <div class="bestseller">
+            {{category.category}}
+        </div>
+        <div class="slideBar">
+            {%for product in category.product.all%}
+            <div class="best__product">
+                <img src="{{product.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
+                <a href="{%url 'product' product.id%}"><p class="bestseller__title">{{product.title}}</p></a>
+                <p class="bestseller__text">{{product.description}}
+                </p>
+                <div class="bestseller__cost">
+                    <p class="bestseller__price">{{product.price}} ₽</p>
+                    {%if product.id in in_basket%}
+                    <button class="plus">&#10003</button>
+                    {%else%}
+                    <a class="addToCard" href="{%url 'addProductToBascet' product.id %}">
+                        <button class="plus">+</button>
+                    </a>
+                    {%endif%}
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+        {%endfor%}
+        {%endif%}
 
     </div>
 </div>
@@ -274,6 +301,11 @@ iconPlus.html('	&#10003;')
 })
 })
     })
+
+
+
+
+
 
 
 

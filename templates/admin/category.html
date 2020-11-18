@@ -3,7 +3,7 @@
 {%block body%}
 <h4 class="text-center">{{category.category}}</h4>
 {%if category%}
-{%for product in category.product_set.all%}
+{%for product in category.product.all%}
 <div class="container-fluid" style="margin-bottom: 2%">
     <div class="border border-secondary">
         <a href="{%url 'detailProduct' product.id%}">

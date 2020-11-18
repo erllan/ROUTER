@@ -1,0 +1,19 @@
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
+<div class="container-fluid">
+    <h3 class="text-center">{{category_title}}</h3>
+    <form action="{%url 'in_category' category_title.id%}" method="post"> {% csrf_token %}
+        <input type="text" name='category'>
+        <input type="submit">
+    </form>
+
+    {%for category in categories%}
+    <div><a href="{%url 'detailCategory' category.id%}">{{category.category}}</a></div>
+    <div class="text-right">
+        <a href="{%url 'deleteCategory' category.id%}">
+            <button type="button" class="btn btn-danger btn-sm">удалить</button>
+        </a></div>
+</div>
+{%endfor%}
+{%endblock%}

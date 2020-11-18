@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .serializers import ProductSerializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.db.models import Count
 
 
 class Search(APIView):
@@ -22,6 +23,7 @@ def allCatalog():
 
 def index(request):
     catalog = allCatalog()
+    categories = Category.objects.annotate(one=Count('product')).filter(one__gt=0)
     saleProduct = Product.objects.all().order_by('-sale')
     sale = saleProduct.exclude(sale=0)
     hits = saleProduct.filter(hit=True)
@@ -33,7 +35,8 @@ def index(request):
         for items in order_id['data']:
             in_basket.append(items['id'])
     return render(request, 'shop_router/index.html',
-                  {'sales': sale[:3], 'catalogs': catalog, 'hits': hits, 'in_basket': in_basket})
+                  {'sales': sale[:3], 'catalogs': catalog, 'hits': hits, 'in_basket': in_basket,
+                   'categories': categories})
 
 
 def category_set(request, id_object):
@@ -65,7 +68,7 @@ def form(request):
                 product = Product.objects.get(id=int(items['id']))
                 Order.objects.create(product=product, from_customer=customer,
                                      order_quantities=items['count'])
-            return HttpResponseRedirect(reverse('index',))
+            return HttpResponseRedirect(reverse('index', ))
     return render(request, 'shop_router/form.html', {'catalogs': catalog})
 
 
@@ -127,13 +130,26 @@ def addProductToBascet(request, id_object, count=1):
         orderCookie = request.COOKIES.get("Order")
         des = orderCookie.replace("'", '"')
         dataCookie = json.loads(des)
-        dataCookie["data"].append({"id": id_object, "count": count})
+        id = []
+        for items in dataCookie['data']:
+            id.append(items['id'])
+        if id.count(id_object) == 0:
+            dataCookie["data"].append({"id": id_object, "count": count})
         response.set_cookie("Order", dataCookie, max_age=3600)
     else:
         data = json.dumps({"data": [{"id": id_object, "count": count}]})
         response = HttpResponse(json.dumps(res), content_type="application/json")
         response.set_cookie("Order", data, max_age=3600)
     return response
+
+
+def getChildrenCategories(Request, id):
+    category = Category.objects.get(id=id)
+    children = []
+    if category and category.set_category.all():
+        for category in category.set_category.all():
+            children.append({'id': category.id, 'title': category.category})
+    return HttpResponse(json.dumps(children), content_type="application/json")
 
 
 def product(request, id_obj):

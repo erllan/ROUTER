@@ -12,6 +12,8 @@ class Catalog(models.Model):
 class Category(models.Model):
     category = models.CharField(verbose_name='катигория', max_length=255)
     catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, blank=True, null=True)
+    children_category = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE,
+                                          related_name='set_category')
 
     def __str__(self):
         return self.category
@@ -28,7 +30,7 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
     title = models.CharField(verbose_name='Названия', max_length=255)
     description = models.TextField(verbose_name='Описания', )
-    category = models.ManyToManyField(Category, verbose_name='катигория')
+    category = models.ManyToManyField(Category, verbose_name='катигория', related_name='product')
     price = models.IntegerField(default=0)
     color = models.CharField(max_length=255, null=True)
     size = models.CharField(max_length=255, null=True)

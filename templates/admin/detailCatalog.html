@@ -12,7 +12,7 @@
 </div>
 <ul class="list-group">
     {%for category in catalog.category_set.all%}
-    <li class="list-group-item"><a href="{%url 'detailCategory' category.id%}">{{category.category}}</a>
+    <li class="list-group-item"><a href="{%url 'in_category' category.id%}">{{category.category}}</a>
 
         <div class="text-right">
             <a href="{%url 'deleteCategory' category.id%}">
