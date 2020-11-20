@@ -79,13 +79,14 @@
                 {%if sales%}
 
                 <div class="product">
+                    <a href="#popup" class="view" data-id = '{{sales.0.id}}' >
                     <img src="{{sales.0.album_set.all.0.photo.url}}" alt="" class="product__img">
                     <img src="{%static 'images/sale__first.png'%}" alt="" class="sale__img">
+                    </a>
                     <p class="sale__text">-{{sales.0.sale}}%</p>
                     <div class="product__desc">
-                        <a href="{%url 'product' sales.0.id%}">
                             <p class="product__text">{{sales.0.title}}</p>
-                        </a>
+
                         <p class="price__old">{{sales.0.price}} ₽</p>
                         <div class="price__full">
                             <p class="price__new">{{sales.0.get_sale}} ₽</p>
@@ -99,7 +100,9 @@
                             {%endif%}
                         </div>
                     </div>
+
                 </div>
+            </div>
                 {% for sale in sales%}
                 {%if sale.id != sales.0.id%}
                 <div class="product__two">
@@ -138,10 +141,12 @@
 
             {%for hit in hits%}
             <div class="best__product">
+                <a href="#popup" class="view" id="view" data-id = '{{hit.id}}'>
                 <img src="{{hit.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
                 <a href="{%url 'product' hit.id%}"><p class="bestseller__title">{{hit.title}}</p></a>
                 <p class="bestseller__text">{{hit.description}}
                 </p>
+                </a>
                 <div class="bestseller__cost">
                     <p class="bestseller__price">{{hit.price}} ₽</p>
                     {%if hit.id in in_basket%}
@@ -165,8 +170,10 @@
         <div class="slideBar">
             {%for product in category.product.all%}
             <div class="best__product">
+                <a href="#popup" class="view" data-id = '{{product.id}}' >
                 <img src="{{product.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
-                <a href="{%url 'product' product.id%}"><p class="bestseller__title">{{product.title}}</p></a>
+                </a>
+                <p class="bestseller__title">{{product.title}}</p>
                 <p class="bestseller__text">{{product.description}}
                 </p>
                 <div class="bestseller__cost">
@@ -187,106 +194,6 @@
 
     </div>
 </div>
-</div>
-<div id="popup" class="popup">
-    <a href="#view" class="popup__area"></a>
-    <div class="popup__body">
-        <div class="popup__content">
-            <div class="popup__title">Быстрый просмотр</div>
-            <div class="cancel__block">
-                <a href="#view" class="cancel__link">
-                    <img src="images/cancel.png" alt="CANCEL" class="cancel__img">
-                </a>
-            </div>
-            <div class="popup__block">
-                <div class="popup__slider">
-                    <div class="popup__sidebar">
-                        <img src="images/view.png" alt="" class="popup__img">
-                        <div class="slide__popup">
-                            <div class="slide__popup-block">
-                                <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
-                            </div>
-                            <div class="slide__popup-block">
-                                <img src="images/slidePopupTwo.png" alt="" class="slide__popup-img">
-                            </div>
-                            <div class="slide__popup-block">
-                                <img src="images/slidePopupThree.png" alt="" class="slide__popup-img">
-                            </div>
-                            <div class="slide__popup-block">
-                                <img src="images/slidePopupFour.png" alt="" class="slide__popup-img">
-                            </div>
-                            <div class="slide__popup-block">
-                                <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
-                            </div>
-                            <div class="slide__popup-block">
-                                <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
-                            </div>
-                            <div class="slide__popup-block">
-                                <img src="images/slidePopupOne.png" alt="" class="slide__popup-img">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="feature">
-                        <p class="popup__feature">HUAWEI WiFi WS5200</p>
-                        <p class=" popup__text-modem">Преимущественный выбор устройств с поддержкой Wi-Fi 5 ГГц
-                        </p>
-                        <p class="feature__title">
-                            Основные характеристики
-                        </p>
-                        <div class="featue__block">
-                            <div class="feature__feature">
-                                <p class="feature__text">Размер ....................................</p>
-                                <p class="about__feature">205 мм x 120 мм x 36,8 мм</p>
-                            </div>
-                            <div class="feature__feature">
-                                <p class="feature__text">Интерфейсы .................................</p>
-                                <p class="about__feature">WAN: Один порт Ethernet 10 / 100 / 1 000 Мбит/с
-                                    LAN: Четыре порта Ethernet 10 / 100 / 1 000 Мбит/с</p>
-                            </div>
-                            <div class="feature__feature">
-                                <p class="feature__text">Безопасность .................................</p>
-                                <p class="about__feature">Anti-brute force algorithms,
-                                    WPA-PSK / WPA2-PSK Wi-Fi encryption, firewall, DMZ, PAP /
-                                    CHAP, DoS attack protection</p>
-                            </div>
-                            <div class="avail__feature">
-                                <div class="avail">
-                                    <div class="avail__img"></div>
-                                    <img src="images/PolygonFeature.png" alt="" class="avail__imgPolygon">
-                                </div>
-                                <div class="stock__block">
-                                    <p class="stock">
-                                        В наличии:
-                                    </p>
-                                    <p class="stock__colour">
-                                        белый
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="price__feature">
-                                <p class="price__feature-title">
-                                    Цена:
-                                </p>
-                                <p class="price__feature-cost">
-                                    2 990 ₽
-                                </p>
-                                <div class="on__trash">
-                                    <a href="#" class="onTrash">
-                                        Добавить в корзину
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="more">
-                <a href="#" class="more__info">Больше информации о товаре</a>
-            </div>
-        </div>
-    </div>
 </div>
 <script>
     $(document).ready(function(){

@@ -2,9 +2,9 @@
 {%load static%}
 {%block body%}
 
-<a href="#" class="list-group-item list-group-item-action active">
+
     <h4 class="text-center">выберите каталог</h4>
-</a>{%for catalog in catalogs%}
+{%for catalog in catalogs%}
 <a href="{%url 'category_set' catalog.id%}" class="list-group-item list-group-item-action">{{catalog.title}}</a>
 {%endfor%}
 

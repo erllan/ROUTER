@@ -1,0 +1,15 @@
+{%extends 'base_admin.html'%}
+{%load static%}
+{%block body%}
+<div class="container-fluid">
+    <h4 class="text-center">Поиск</h4>
+    {%if result%}
+    {%for product in result%}
+    <div><a class="list-group-item list-group-item-action" href="{%url 'detailProduct' product.id%}">{{product.title}}</a>
+    </div>
+    {%endfor%}
+    {%else%}
+    <h4>ничего не найдено</h4>
+    {%endif%}
+</div>
+{%endblock%}

@@ -1,4 +1,4 @@
-from django.urls import path,include
+from django.urls import path
 from . import views
 
 urlpatterns = [
@@ -15,6 +15,10 @@ urlpatterns = [
     path('minusCount/<int:id_object>', views.minusCountOrder, name='minusCount'),
     path('category/<int:id_object>', views.category_set, name='category'),
     path('search/', views.Search.as_view(), name='search'),
-    path('category/<int:id>/children', views.getChildrenCategories, name='categoryChildren'),
+    path('product-data/', views.DetailPopap.as_view(), name='product-data'),
+    path('catalog-data/', views.CatalogAPi.as_view(), name='catalog-data'),
+    path('category-data/', views.CategoryAPi.as_view(), name='category-data'),
+    path('in-basket/', views.in_basket, name='in-basket'),
+    path('count-order/', views.count_order, name='count_order'),
 
 ]

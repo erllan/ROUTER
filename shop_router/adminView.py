@@ -159,6 +159,14 @@ def hit(request, id_object):
     obj = Product.objects.get(id=id_object)
     obj.hit = True
     obj.save()
+    return HttpResponseRedirect('/admin/hit/')
+
+
+def deleteHit(request, id_object):
+    obj = Product.objects.get(id=id_object)
+    obj.hit = False
+    obj.save()
+    return HttpResponseRedirect('/admin/hit/')
 
 
 def hits(request):
@@ -231,13 +239,19 @@ class AddDeleteAlbum(View):
 
 def order(request, id_object):
     customer = Customer.objects.get(id=id_object)
-    return render(request, 'admin/order.html', {'customer': customer})
+    total = 0
+    allSale = 0
+    order = customer.order_set.all()
+    for object in order:
+        total += object.product.price
+        allSale += (object.product.price - object.product.get_sale())
+    return render(request, 'admin/order.html', {'customer': customer, 'total': total - allSale})
 
 
 def deleteCustomer(request, id_object):
     obj = Customer.objects.get(id=id_object)
     obj.delete()
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect('/admin/')
 
 
 def set_category(request, id_object):
@@ -258,3 +272,15 @@ class In_category(View):
         category.set_category.add(obj)
 
         return HttpResponse('да')
+
+
+def all_sale(request):
+    saleProduct = Product.objects.all().order_by('-sale')
+    sale = saleProduct.exclude(sale=0)
+    return render(request, 'admin/sales.html', {'sales': sale})
+
+
+def search(request):
+    search = request.GET['title']
+    result = Product.objects.filter(title__icontains=search)
+    return render(request, 'admin/search.html', {'result': result})

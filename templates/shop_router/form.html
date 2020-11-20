@@ -10,12 +10,14 @@
             <div class="form__wrap">
                 <div class="form__label">
                     <p class="form__title">ФИО:</p>
-                    <input type="text" class="form__input" placeholder="Антон Турдубаев Константинович" name="full_name" required>
+                    <input type="text" class="form__input" placeholder="Антон Турдубаев Константинович" name="full_name"
+                           required>
                 </div>
                 <div class="form__label">
                     <p class="form__title">Телефон:</p>
                     <div class="form__input-country">
-                        <input type="number" class="form__input" placeholder="+ 380 (**) *** - ** - **" name="phone" required>
+                        <input type="number" class="form__input" placeholder="+ 380 (**) *** - ** - **" name="phone"
+                               required>
                     </div>
                 </div>
             </div>
@@ -35,7 +37,7 @@
             <p class="comment__title">
                 Комментарий к заказу:
             </p>
-            <input type="text" name = "comment" class="comment__form" placeholder="Хотел заказать у вас роутер и модем" >
+            <input type="text" name="comment" class="comment__form" placeholder="Хотел заказать у вас роутер и модем">
         </div>
         <div class="consent" onclick="consent()">
             <img src="{%static 'images/check__mark-block.png'%}" alt="" class="check__mark">
@@ -43,10 +45,23 @@
             <p class="consent__text">Я соглашаюсь с политикой конфиденциальности</p>
         </div>
         <div class="checkout__button form__link">
-            <button class="onTrash checkout ">
-                Оставить заявку
-            </button>
+                <button class="onTrash checkout ">
+                    Оставить заявку
+                </button>
         </div>
     </div>
 </form>
+
+<div class="formalized" id="formalized">
+    <div class="form__block">
+        <a href="/" class="form__area"></a>
+        <div class="form__body">
+            <div class="form__content">
+                <a href="/"><img src="{%static 'images/close__c.svg'%}" alt="*" class="form__close"></a>
+                <p class="title__form">Ваша заявка оформлена!</p>
+                <img src="{% static 'images/illustr.jpg' %}" alt="" class="illustr">
+            </div>
+        </div>
+    </div>
+</div>
 {%endblock%}

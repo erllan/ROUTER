@@ -4,6 +4,7 @@ from datetime import datetime
 
 class Catalog(models.Model):
     title = models.CharField(max_length=255)
+    date = models.DateTimeField(verbose_name='Дата', default=datetime.now)
 
     def __str__(self):
         return self.title
@@ -14,6 +15,7 @@ class Category(models.Model):
     catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, blank=True, null=True)
     children_category = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE,
                                           related_name='set_category')
+    date = models.DateTimeField(verbose_name='Дата', default=datetime.now)
 
     def __str__(self):
         return self.category
@@ -21,6 +23,7 @@ class Category(models.Model):
 
 class Brand(models.Model):
     brand_name = models.CharField(verbose_name='бренд', max_length=255)
+    date = models.DateTimeField(verbose_name='Дата', default=datetime.now)
 
     def __str__(self):
         return self.brand_name
@@ -54,6 +57,7 @@ class Album(models.Model):
     name = 'album'
     photo = models.ImageField(verbose_name='фото', upload_to='album/')
     to_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date = models.DateTimeField(verbose_name='Дата', default=datetime.now)
 
     def __str__(self):
         return self.name
@@ -66,6 +70,7 @@ class Customer(models.Model):
     delivery_city = models.CharField(verbose_name='Город доставки', max_length=255)
     Comment = models.CharField(verbose_name='Комментарий к заказу', max_length=255)
     order_date = models.DateTimeField(verbose_name='Дата и время заказа', default=datetime.now)
+    is_completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.full_name

@@ -3,20 +3,22 @@
 <section class="routers">
     <div class="container">
         <h3 class="routers__title">
-            {{catalog_set.title}}
+            {{category.category}}
         </h3>
-        {% for category in catalog_set.category_set.all%}
+        {% for c in category.set_category.all%}
         <div class="router__block">
             <p class="router__title-block">
-                {%if category.product_set.all.count > 0%}
-                {{category.category}}
+                {%if c.product.all.count > 0%}
+                {{c.category}}
                 {%endif%}
             </p>
 
             <div class="slideBar slideBar__router">
-                {%for product in category.product_set.all%}
+                {%for product in c.product.all%}
                 <div class="best__product">
+                    <a href="#popup" class="view" data-id = "{{product.id}}" >
                     <img src="{{product.album_set.all.0.photo.url}}" alt="" class="bestseller__img">
+                    </a>
                     <p class="bestseller__title">{{product.title}}</p>
                     <p class="bestseller__text">{{product.description}}</p>
                     <div class="bestseller__cost">

@@ -34,127 +34,199 @@
                         <img class="polygon" src="{%static 'images/Polygon.png'%}" alt="" srcset="">
                         <div class="dropdown-content">
                             <div class="dropdown__routers">
-                                <a href="#" class="drop-link ">Роутеры и модемы</a>
-                                <div class="dropdown-content-routers">
-                                    <a href="order.html" class="drop-link drop__link__rout">Комплектующие</a>
-                                    <a href="product.html" class=" drop__link-routers "> DSL-модемы
-                                        -маршрутизаторы</a>
-                                    <a href="form.html" class=" drop__link-routers "> Кабельные модемы и
-                                        маршрутизаторы</a>
-                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
-                                        PON SFU и HGU</a>
-                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
-                                        PON SFU и HGU</a>
-                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
-                                        PON SFU и HGU</a>
-                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
-                                        PON SFU и HGU</a>
-                                    <a href="routers.html" class=" drop__link-routers">4G Wi-Fi роутеры
-                                        PON SFU и HGU</a>
+                                {%if catalogs%}
+                                {%for catalog in catalogs%}
+                                <a href="#" class="drop-link" data-id="{{catalog.id}}">{{catalog.title}}</a>
+                                {%endfor%}
+                                {%endif%}
+                                <div class="routers__rout">
+                                    <div class="dropdown-content-routers">
+                                    </div>
                                 </div>
                             </div>
-                            <a href="order.html" class="drop-link">WiFi & CPE</a>
-                            <a href="order.html" class="drop-link">WiFi & CPE</a>
-                            <a href="order.html" class="drop-link">WiFi & CPE</a>
-                            <a href="order.html" class="drop-link">WiFi & CPE</a>
-                            <a href="order.html" class="drop-link">WiFi & CPE</a>
+                        </div>
+
+                    </div>
+
+                    <a href="{% url 'about'%}" class="about__company">О компании</a>
+
+                </div>
+                    <div class="menu__right">
+                        <div class="contact" id="contact">
+                            <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
+                            <a href="tel:0707 708 899" class="contact__link nomer">0707 708 899</a>
+                        </div>
+                        <div id="search" class="search-box search">
+                            <a href="#"><img src="{%static 'images/search.png'%}" alt="" class="search__img"
+                                             onclick="go()"></a>
+                        </div>
+
+                        <form method="get" autocomplete="off" class="search__input" id="search__input"
+                              style="z-index: 1;background-color: white;">
+                            <input type="text" name="title" class="search__input-text" placeholder="Поиск по сайту">
+
+                            <img src="{%static 'images/cancel.png'%}" alt="CLOSE" class="search__input-close"
+                                 onclick="closeSearch()">
+                            <div class="result_search">
+
+                            </div>
+                        </form>
+
+
+                        <div class="trash">
+
+                            <a href="{%url 'order'%}"><img src="{%static 'images/trash.png'%}" alt="TRASH"
+                                                           class="trash__logo"></a>
+
+                        </div>
+                        <div class="ball"><h6>{%if request.COOKIES.count%}{{request.COOKIES.count}}{%else%}{{0}}{%endif%}</h6></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input__block-mobile">
+            <input type="text" placeholder="Поиск по сайту" class="search__mobile">
+            <a href="#" class="search__img-mobile"><img src="{%static 'images/search.png'%}" alt="" srcset=""></a>
+            <div class="result_search">
+
+            </div>
+        </div>
+        <div class="nav-mobile">
+            <label for="toggle" class="toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <input type="checkbox" id="toggle"/>
+            <div class="menu_mobile">
+                <div class="ul-mobile">
+                    <li><a href="{%url 'about'%}" class="nav__link-mobile">О компании</a></li>
+                    <li><a href="{%url 'order'%}" class="nav__link-mobile">Корзина</a></li>
+                    <li><a href="tel:0707 708 899" class="nav__link-mobile">0707 708 899</a></li>
+                    <img class="logo__img logo__mobile" src="{%static 'images/logo.png'%}" alt="LOGO">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {%block body%}
+
+
+    {%endblock%}
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__footer">
+                <img src="{%static 'images/logo.png'%}" alt="" class="logo logo__footer">
+                <p class="footer__text">© 2020, Компания Hetwok.
+                    Все права защищены.
+                </p>
+                <div class="contact contact__footer">
+                    <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
+                    <a href="tel:0707 708 899" class="contact__link">0707 708 899</a>
+                </div>
+                <div class="social__network">
+                    <a href="https://www.instagram.com/hetwok.kg/" class="insta"> <img src="{%static 'images/instagram.png'%}" alt=""></a>
+                    <a href=" https://www.facebook.com/hetwokkg-104267808153625" class="facebook"> <img src="{%static 'images/facebook.png'%}" alt=""></a>
+                </div>
+            </div>
+        </div>
+        <div id="popup" class="popup">
+        <a href="#view" class="popup__area"></a>
+        <div class="popup__body">
+            <div class="popup__content">
+                <div class="popup__title">Быстрый просмотр </div>
+                <div class="cancel__block">
+                    <a href="#view" class="cancel__link">
+                        <img src="{% static 'images/cancel.png'%}" alt="CANCEL" class="cancel__img">
+                    </a>
+                </div>
+                <div class="popup__block">
+                    <div class="popup__slider">
+                        <div class="popup__sidebar">
+                            <div class="popup__img-block">
+                            <img src="" alt="" class="popup__img">
+                            </div>
+
+                        </div>
+                        <div class="feature">
+                            <p class="popup__feature">HUAWEI WiFi WS5200</p>
+                            <p class=" popup__text-modem">Преимущественный выбор устройств с поддержкой Wi-Fi 5 ГГц
+                            </p>
+                            <p class="feature__title">
+                                Основные характеристики
+                            </p>
+                            <div class="featue__block">
+                                <div class="feature__feature">
+                                    <p class="feature__text">Размер ....................................</p>
+                                    <p class="about__feature">205 мм x 120 мм x 36,8 мм</p>
+                                </div>
+                                <div class="feature__feature">
+                                    <p class="feature__text">Интерфейсы .................................</p>
+                                    <p class="about__feature">WAN: Один порт Ethernet 10 / 100 / 1 000 Мбит/с
+                                        LAN: Четыре порта Ethernet 10 / 100 / 1 000 Мбит/с</p>
+                                </div>
+                                <div class="feature__feature">
+                                    <p class="feature__text">Безопасность .................................</p>
+                                    <p class="about__feature">Anti-brute force algorithms,
+                                        WPA-PSK / WPA2-PSK Wi-Fi encryption, firewall, DMZ, PAP /
+                                        CHAP, DoS attack protection</p>
+                                </div>
+                                <div class="avail__feature">
+                                    <div class="avail">
+                                        <div class="avail__img"></div>
+                                        <img src="{%static 'images/PolygonFeature.png'%}" alt="" class="avail__imgPolygon">
+                                    </div>
+                                    <div class="stock__block">
+                                        <p class="stock">
+                                            В наличии:
+                                        </p>
+                                        <p class="stock__colour">
+                                            белый
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="price__feature">
+                                    <p class="price__feature-title">
+                                        Цена:
+                                    </p>
+                                    <p class="price__feature-cost">
+                                        2 990 ₽
+                                    </p>
+                                    <div class="on__trash">
+                                        <a href="#popup" class="onTrash">
+                                            Добавить в корзину
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <a href="about.html" class="about__company">О компании</a>
+
                 </div>
-
-
-                <div class="menu__right">
-                    <div class="contact" id="contact">
-                        <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
-                        <a href="#" class="contact__link nomer">0707 708 899</a>
-                    </div>
-                    <div id="search" class="search-box search">
-                        <a href="#"><img src="{%static 'images/search.png'%}" alt="" class="search__img" onclick="go()"></a>
-                    </div>
-
-                    <form method="get" autocomplete="off" class="search__input" id="search__input"
-                          style="z-index: 1;background-color: white;">
-                        <input type="text" name="title" class="search__input-text" placeholder="Поиск по сайту">
-
-                        <img src="{%static 'images/cancel.png'%}" alt="CLOSE" class="search__input-close"
-                             onclick="closeSearch()">
-                        <div class="result_search">
-
-                        </div>
-                    </form>
-
-
-                    <div class="trash">
-                        <a href="{%url 'order'%}"><img src="{%static 'images/trash.png'%}" alt="TRASH"
-                                                       class="trash__logo"></a>
-                    </div>
+                <div class="more">
+                    <a href="#" class="more__info">Больше информации о товаре</a>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="input__block-mobile">
-        <input type="text" placeholder="Поиск по сайту" class="search__mobile">
-        <a href="#" class="search__img-mobile"><img src="{%static 'images/search.png'%}" alt="" srcset=""></a>
-        <div class="result_search">
-
         </div>
-    </div>
-    <div class="nav-mobile">
-        <label for="toggle" class="toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <input type="checkbox" id="toggle"/>
-        <div class="menu_mobile">
-            <div class="ul-mobile">
-                <li><a href="{%url 'about'%}" class="nav__link-mobile">О компании</a></li>
-                <li><a href="{%url 'order'%}" class="nav__link-mobile">Корзина</a></li>
-                <li><a href="#" class="nav__link-mobile">0707 708 899</a></li>
-                <img class="logo__img logo__mobile" src="{%static 'images/logo.png'%}" alt="LOGO">
-            </div>
-        </div>
-    </div>
-</div>
+    </footer>
 
-{%block body%}
+    <script src="{%static 'js/slick.min.js'%}"></script>
+    <script src="{%static 'js/js.js'%}"></script>
+    <script src="{%static 'js/index.js'%}"></script>
+    <script src="{%static 'js/order.js'%}"></script>
+    <script>
+
+    </script>
 
 
-{%endblock%}
-<footer class="footer">
-    <div class="container">
-        <div class="footer__footer">
-            <img src="{%static 'images/logo.png'%}" alt="" class="logo logo__footer">
-            <p class="footer__text">© 2020, Компания Hetwok.
-                Все права защищены.
-            </p>
-            <div class="contact contact__footer">
-                <img src="{%static 'images/phone.png'%}" alt="CONTACT" class="contact__logo">
-                <a href="#" class="contact__link">0707 708 899</a>
-            </div>
-            <div class="social__network">
-                <a href="#" class="insta"> <img src="{%static 'images/instagram.png'%}" alt=""></a>
-                <a href=" #" class="facebook"> <img src="{%static 'images/facebook.png'%}" alt=""></a>
-            </div>
-        </div>
-    </div>
-
-</footer>
-
-<script src="{%static 'js/slick.min.js'%}"></script>
-<script src="{%static 'js/index.js'%}"></script>
-<script src="{%static 'js/order.js'%}"></script>
-<script>
-
-</script>
-<script>
+    <script>
     $(document).ready(function(){
    orderPlus()
    orderMinus()
 $('.search__input-text').on('input',function(){
 let searchText = $(this).val()
-console.log(searchText)
 if(searchText.length >= 3){
 $.get('/search',{'title':searchText},function(response){
 if(response.length){
@@ -176,7 +248,6 @@ if(searchText.length<3){
 
 $('.search__mobile').on('input',function(){
 let searchText = $(this).val()
-console.log(searchText)
 if(searchText.length >= 3){
 $.get('/search',{'title':searchText},function(response){
 if(response.length){
@@ -196,11 +267,10 @@ if(searchText.length<3){
 
 })
 
-$.get('/category/21/children',function(data){
+
 
 })
 
-})
 
 
 
@@ -220,6 +290,7 @@ $.get('/category/21/children',function(data){
 
 
 
-</script>
+    </script>
+
 </body>
 </html>

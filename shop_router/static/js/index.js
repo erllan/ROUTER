@@ -19,8 +19,8 @@ $(document).ready(function(){
         adaptiveHeight: true,
         infinite: true,
         initialSlide: 0,
-        autoplay: true,
-        autoplaySpeed: 1500,
+        // autoplay: true,
+        // autoplaySpeed: 1500,
         pauseOnFocus: true,
         pauseOnDotsHover: true,
         pauseOnHover: true,
@@ -103,4 +103,12 @@ function closeSearch(){
 }
 function consent(){
   document.getElementById("tick").style.display = "block";
+}
+function text(){
+  document.getElementById("bestseller__text").style.maxHeight = "600px";
+  document.getElementById("deleteText").style.display = "block";
+}
+function deleteText(){
+  document.getElementById("bestseller__text").style.maxHeight = "40px";
+  document.getElementById("deleteText").style.display = "none";
 }

@@ -23,7 +23,10 @@ urlpatterns = [
     path('album/<int:id_object>', adminView.AddDeleteAlbum.as_view(), name='addAlbum'),
     path('customer/<int:id_object>', adminView.deleteCustomer, name='deleteCustomer'),
     path('hit/<int:id_object>', adminView.hit, name='addToHit'),
+    path('hit-delete/<int:id_object>', adminView.deleteHit, name='deleteHit'),
     path('hit/', adminView.hits, name='hits'),
     path('category_set/<int:id_object>', adminView.set_category, name='category_set'),
     path('in_category/<int:id_object>', adminView.In_category.as_view(), name='in_category'),
+    path('sale/', adminView.all_sale, name='sales'),
+    path('search/', adminView.search, name='admin-search'),
 ]

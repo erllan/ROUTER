@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse
 from .models import *
 import json
 from django.http import HttpResponse, HttpResponseRedirect
-from .serializers import ProductSerializers
+from .serializers import ProductSerializers, ProductPopup, CatalogSerializer, CategorySerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Count
@@ -13,6 +13,30 @@ class Search(APIView):
         search = request.GET['title']
         result = Product.objects.filter(title__icontains=search)
         serializer = ProductSerializers(result, many=True)
+        return Response(serializer.data)
+
+
+class DetailPopap(APIView):
+    def get(self, request):
+        id_object = request.GET['id_object']
+        product = Product.objects.get(id=id_object)
+        serializer = ProductPopup(product)
+        return Response(serializer.data)
+
+
+class CategoryAPi(APIView):
+    def get(self, request):
+        id = request.GET.get('id')
+        catalog = Catalog.objects.get(id=id)
+        category = catalog.category_set.all()
+        serializer = CategorySerializer(category, many=True)
+        return Response(serializer.data)
+
+
+class CatalogAPi(APIView):
+    def get(self, request):
+        allCatalog = Catalog.objects.all()
+        serializer = CatalogSerializer(allCatalog, many=True)
         return Response(serializer.data)
 
 
@@ -50,6 +74,21 @@ def basket(request):
     return render(request, 'shop_router/basket.html', {'catalogs': catalog})
 
 
+def in_basket(request):
+    id = request.GET.get('id')
+    in_bas = 'no'
+    if request.COOKIES.get('Order'):
+        cookie = request.COOKIES.get('Order')
+        des = cookie.replace("'", '"')
+        product_id = json.loads(des)
+        id_data = []
+        for item in product_id['data']:
+            id_data.append(int(item['id']))
+        if id_data.count(int(id)) > 0:
+            in_bas = 'yes'
+    return HttpResponse(json.dumps({"status": in_bas}), content_type="application/json")
+
+
 def form(request):
     catalog = allCatalog()
     testOrder = request.COOKIES.get('Order')
@@ -68,7 +107,7 @@ def form(request):
                 product = Product.objects.get(id=int(items['id']))
                 Order.objects.create(product=product, from_customer=customer,
                                      order_quantities=items['count'])
-            return HttpResponseRedirect(reverse('index', ))
+            return HttpResponseRedirect('/form/#formalized')
     return render(request, 'shop_router/form.html', {'catalogs': catalog})
 
 
@@ -143,15 +182,6 @@ def addProductToBascet(request, id_object, count=1):
     return response
 
 
-def getChildrenCategories(Request, id):
-    category = Category.objects.get(id=id)
-    children = []
-    if category and category.set_category.all():
-        for category in category.set_category.all():
-            children.append({'id': category.id, 'title': category.category})
-    return HttpResponse(json.dumps(children), content_type="application/json")
-
-
 def product(request, id_obj):
     catalog = allCatalog()
     order_data = request.COOKIES.get('Order')
@@ -173,7 +203,7 @@ def product(request, id_obj):
 
 def routers(request, id_object):
     catalog = allCatalog()
-    catalog_set = Catalog.objects.get(id=id_object)
+    category = Category.objects.get(id=id_object)
     cookie = request.COOKIES.get('Order')
     in_basket = []
     if cookie:
@@ -182,9 +212,23 @@ def routers(request, id_object):
         for items in order_id['data']:
             in_basket.append(items['id'])
     return render(request, 'shop_router/routers.html',
-                  {'catalogs': catalog, 'catalog_set': catalog_set, 'in_basket': in_basket})
+                  {'catalogs': catalog, 'category': category, 'in_basket': in_basket})
 
 
 def about(request):
     catalog = allCatalog()
     return render(request, 'shop_router/about.html', {'catalogs': catalog})
+
+
+def count_order(request):
+    if request.COOKIES.get('Order'):
+        order_data = request.COOKIES.get('Order')
+        des = order_data.replace("'", '"')
+        order_id = json.loads(des)
+        count = []
+        for item in order_id['data']:
+            count.append(item['id'])
+        result = str(len(count))
+        response = HttpResponse(json.dumps({"result": result}), content_type="application/json")
+        response.set_cookie("count", result,max_age=3600)
+        return response

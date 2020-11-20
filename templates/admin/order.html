@@ -3,15 +3,19 @@
 {%block body%}
 {%if customer%}
 <div class="container-fluid">
+    <div class="text-right"><a  href="{%url 'deleteCustomer' customer.id%}"><button>&#10060;</button></a></div>
     <div class="customer">
-        <div>Дата заказа:{{customer.order_date}}</div>
-        <div>Имя:{{customer}}</div>
-        <div>email:{{customer.Email}}</div>
-        <div>Коментария:</div>
-        <div>{{customer.Comment}}</div>
+        <div class="list-group-item list-group-item-action" >Дата заказа:{{customer.order_date}}</div>
+        <div class="list-group-item list-group-item-action">Имя:{{customer}}</div>
+        <div class="list-group-item list-group-item-action">email:<a href="https://{{customer.Email}}">{{customer.Email}}</a></div>
+        <div class="list-group-item list-group-item-action">номер:<a href="tel:{{customer.phone}}">{{customer.phone}}</a></div>
+        <div class="list-group-item list-group-item-action">Коментария:</div>
+        <div class="list-group-item list-group-item-action">{{customer.Comment}}</div>
+        <div class="list-group-item list-group-item-action">город:{{customer.delivery_city}}</div>
+        <div class="list-group-item list-group-item-action">сумма:{{total}}</div>
     </div>
 </div>
-<a href="{%url 'deleteCustomer' customer.id%}">удалить</a>
+
 <div><h5 class="text-center">Заказы</h5></div>
 {%for order in customer.order_set.all%}
 <div class="container-fluid" style="margin-bottom: 2%">
@@ -20,10 +24,10 @@
             <div class="product">
                 <img src="{{order.product.album_set.all.0.photo.url}}" alt="" class="img-thumbnail">
                 <div class="container-fluid">
-                    <div class="text-center">{{order.product.title}}</div>
+                    <div class="text-center"><div class="list-group-item list-group-item-action">{{order.product.title}}</div></div>
                     <div>
-                        <div>цена: {{order.product.price}}₽</div>
-                        <div>количество: {{order.order_quantities}}ш</div>
+                        <div class="list-group-item list-group-item-action">цена: {{order.product.price}}₽</div>
+                        <div class="list-group-item list-group-item-action">количество: {{order.order_quantities}}ш</div>
                     </div>
 
                 </div>

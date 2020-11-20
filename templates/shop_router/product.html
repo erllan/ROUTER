@@ -5,7 +5,7 @@
     <div class="popup__block">
         <div class="popup__slider">
             <div class="popup__sidebar">
-                <img src="{{product.photo.url}}" alt="" class="popup__img">
+                <img src="{{product.album_set.all.0.photo.url}}" alt="" class="popup__img">
                 <div class="slide__popup">
                     {%for album in product.album_set.all%}
                     <div class="slide__popup-block">

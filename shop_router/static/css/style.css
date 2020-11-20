@@ -93,6 +93,7 @@
     min-height: 120px;
     margin-left: -20px;
     z-index: 5;
+    display: none;
     background-color: #fff;
   }
   .input__block-mobile{
@@ -106,12 +107,12 @@
   .dropdown:hover .dropdown-content {
     display: block;
   }
-  .dropdown__routers:hover .dropdown-content-routers {
+  .dropdown__routers:hover .routers__rout {
     display: block;
   }
-  .dropdown__routers:hover .dropdown-content-routersOne{
+  /* .dropdown__routers:hover .dropdown-content-routers{
     display: block;
-  }
+  } */
   .drop__link-routers{
     font-family: Mplus 1p;
     font-style: normal;
@@ -121,19 +122,31 @@
     text-align: center;
     color: #444148;
     cursor: pointer;
+    width: 180px;
   }
   .dropdown-content-routers{
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 0;
     position: absolute;
-    min-width: 220px;
+    min-width: 380px;
     min-height: 270px;
-    margin-left: 220px;
-    top: 20px;
+    top: 0px;
     z-index: 55;
     background-color: #fff;
   }
-  .dropdown-content-routersOne{
+  .routers__rout{
+    min-width: 380px;
+    min-height: 270px;
+    margin-left: 250px;
+    top: 10px;
+    z-index: 55;
+    background-color: #fff;
+    display: none;
+    margin-top: 0;
+    position: absolute;
+  }
+  /* .dropdown-content-routersOne{
     display: none;
     margin-top: 0;
     position: absolute;
@@ -143,7 +156,7 @@
     top: 70px;
     z-index: 55;
     background-color: #fff;
-  }
+  } */
   .about__company{
     margin-left: 45px;
     font-family: Mplus 1p;
@@ -539,7 +552,40 @@
     font-weight: 300;
     font-size: 13px;
     line-height: 19px;
+    max-height: 40px;
     color: #444148;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+.deleteText{
+    display: none;
+    margin: 0 auto;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFFFFF;
+    padding: 8px 22px;
+    background: #EE3338;
+    border-radius: 5px;
+    border: 0;
+    text-transform: uppercase;
+}
+.deleteText:hover{
+    background-color: #fff;
+    color: #EE3338;
+    border:  #EE3338 1px solid;
+}
+.bestseller__text:after{
+    content: "";
+	text-align: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 70%;
+	height: 1.2em;
+	background: linear-gradient(to right, rgba(255, 255, 255, 0), white 100%);
+	pointer-events: none;
 }
 .bestseller__cost {
     width: 245px;
@@ -660,9 +706,13 @@
     margin-top: 24px;
     margin-left: 147px;
 }
+.popup__img-block{
+    width: 442px;
+    height: 436px;
+}
 .popup__img{
-    max-width: 442px;
-    max-height: 436px;
+    width: 100%;
+    height: 100%;
 }
 .feature {
     width: 633px;
@@ -833,7 +883,66 @@
     background: url(../images/nextPopup.png) 0 0/ 100% no-repeat;
     right: -10px ;
 }
-
+.formalized {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow-x: hidden;
+}
+.formalized:target .form__content{
+    transform: perspective(600px) translate(0px, 0%) rotate(0deg);
+    opacity: 1;
+}
+.formalized:target{
+    opacity: 1;
+    visibility: visible;
+}
+.form__block {
+}
+.form__area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.form__body {
+    min-height: 100%;
+    margin: 0 auto;
+    max-width: 690px;
+    padding: 30px 20px;
+}
+.form__content {
+    background-color: #fff;
+    position: relative;
+    opacity: 0;
+    height: 700px;
+    transition: all 0.8s ease 0s;
+    transform: perspective(600px) translate(0px, -100%) rotate(45deg);
+}
+.form__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.title__form {
+    padding-top: 60px;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.01em;
+    color: #000000;
+    text-align: center;
+}
+.illustr {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-left: 20%;
+}
 
 /* MEDIA SCREEN */
 @media only screen and (min-width: 768px) and (max-width: 979px) {
@@ -1286,6 +1395,16 @@
     .dropbtn,  .about__company, .contact__link {
         font-size: 14px;
     }
+    .dropdown-content{
+        top: 40px;
+        margin-left: -120px;
+    }
+    .dropdown-content-routers{
+    }
+    .routers__rout{
+        margin-top: -5px;
+        min-width: 180px;
+    }
     .about__company{
         margin-left: 20px;
         display: none;
@@ -1439,9 +1558,13 @@
     .best__product{
         width: 190px;
     }
+    .deleteText{
+        display: none!important; 
+    }
     .bestseller__text{
         font-size: 14px;
         width: 255px;
+        max-height: 400px!important;
         margin: 0 auto;
         text-align: center;
     }
@@ -1464,6 +1587,66 @@
     .best__product {
         margin-left: 15px;
         margin-right: 15px;
+    }
+    .formalized {
+        position: fixed;
+        width: 80%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        top: 0;
+        left: 10%;
+        opacity: 0;
+        visibility: hidden;
+        overflow-x: hidden;
+    }
+    .formalized:target .form__content{
+        transform: perspective(600px) translate(0px, 0%) rotate(0deg);
+        opacity: 1;
+    }
+    .formalized:target{
+        opacity: 1;
+        visibility: visible;
+    }
+    .form__block {
+    }
+    .form__area {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    .form__body {
+        min-height: 100%;
+        margin: 0 auto;
+        max-width: 690px;
+        padding: 30px 20px;
+    }
+    .form__content {
+        background-color: #fff;
+        position: relative;
+        opacity: 0;
+        height: 700px;
+        transition: all 0.8s ease 0s;
+        transform: perspective(600px) translate(0px, -100%) rotate(45deg);
+    }
+    .form__close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+    .title__form {
+        padding-top: 60px;
+        font-size: 36px;
+        line-height: 44px;
+        letter-spacing: 0.01em;
+        color: #000000;
+        text-align: center;
+    }
+    .illustr {
+        padding-top: 100px;
+        padding-bottom: 100px;
+        margin-left: 20%;
     }
     /*FOOTER */
     .footer {
@@ -1722,6 +1905,66 @@
     .cancel__block{
         top: 3%;
     }
+    .formalized {
+        position: fixed;
+        width: 80%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        top: 0;
+        left: 10%;
+        opacity: 0;
+        visibility: hidden;
+        overflow-x: hidden;
+        z-index: 999;
+    }
+    .formalized:target .form__content{
+        transform: perspective(600px) translate(0px, 0%) rotate(0deg);
+        opacity: 1;
+    }
+    .formalized:target{
+        opacity: 1;
+        visibility: visible;
+    }
+    .form__area {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    .form__body {
+        min-height: 100%;
+        margin: 0 auto;
+        max-width: 590px;
+        padding: 30px 20px;
+    }
+    .form__content {
+        background-color: #fff;
+        position: relative;
+        opacity: 0;
+        height: 700px;
+        transition: all 0.8s ease 0s;
+        transform: perspective(600px) translate(0px, -100%) rotate(45deg);
+    }
+    .form__close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+    .title__form {
+        padding-top: 60px;
+        font-size: 30px;
+        line-height: 44px;
+        letter-spacing: 0.01em;
+        color: #000000;
+        text-align: center;
+    }
+    .illustr {
+        padding-top: 100px;
+        padding-bottom: 100px;
+        margin-left: 20%;
+        width: 300px;
+    }
 } 
 @media only screen and (min-width: 320px) and (max-width: 480px){
     .container{
@@ -1887,9 +2130,9 @@
         .dropdown__routers:hover .dropdown-content-routers {
         display: block;
         }
-        .dropdown__routers:hover .dropdown-content-routersOne{
+        /* .dropdown__routers:hover .dropdown-content-routersOne{
         display: block;
-        }
+        } */
         .drop__link-routers{
         font-family: Mplus 1p;
         font-style: normal;
@@ -1904,9 +2147,9 @@
         display: none;
         margin-top: 0;
         position: absolute;
-        width: 80px;
+        min-width: 200px;
         min-height: 270px;
-        margin-left: -210px;
+        margin-left: -440px;
         top: 0px;
         z-index: 55;
         background-color: #fff;
@@ -1914,7 +2157,7 @@
         .drop__link__rout{
             margin-top: 20px;
         }
-        .dropdown-content-routersOne{
+        /* .dropdown-content-routersOne{
         display: none;
         margin-top: 0;
         position: absolute;
@@ -1924,7 +2167,7 @@
         top: 70px;
         z-index: 55;
         background-color: #fff;
-        }
+        } */
         /* MAIN__HEADER */
         .main__header{
             height: 350px;
@@ -2120,7 +2363,7 @@
         /* BESTSELLER */
         .slideBar{
             width: 100%;
-            height: 320px;
+            max-height: 680px;
         }
         .bestseller__img {
             margin: 0 auto;
@@ -2145,9 +2388,13 @@
         }
         .bestseller__text{
             font-size: 14px;
-            width: 255px;
+            width: 225px;
+            max-height: 500px!important;
             margin-top: 25px;
             text-align: center;
+        }
+        .deleteText{
+            display:none!important;
         }
         .bestseller__price{
             font-size: 18px;
@@ -2235,7 +2482,7 @@
         }
         .popup__body {
             z-index: 99;
-            min-height: 100vh;
+            min-height: 120vh;
             display: flex;
             padding: 0;
             align-items: center;
@@ -2246,7 +2493,7 @@
             background-color: #fff;
             color: #000;
             width: 100vw;
-            height: 1340px;
+            min-height: 1580px;
         }
         .popup__title {
             margin-top: 25px;
@@ -2444,4 +2691,72 @@
         .cancel__block{
             top: 2.5%;
         }
+        .formalized {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            overflow-x: hidden;
+            z-index: 999;
+        }
+        .formalized:target .form__content{
+            transform: perspective(600px) translate(0px, 0%) rotate(0deg);
+            opacity: 1;
+        }
+        .formalized:target{
+            opacity: 1;
+            visibility: visible;
+        }
+        .form__block {
+        }
+        .form__area {
+      display: none;
+        }
+        .form__body {
+            width: 100%;
+            padding-top: 20px;
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 0;
+        }
+        .form__content {
+            background-color: #fff;
+            position: relative;
+            opacity: 0;
+            height: 500px;
+            transition: all 0.8s ease 0s;
+            transform: perspective(600px) translate(0px, -100%) rotate(45deg);
+        }
+        .form__close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        .title__form {
+            padding-top: 60px;
+            font-size: 20px;
+            line-height: 44px;
+            letter-spacing: 0.01em;
+            color: #000000;
+            text-align: center;
+        }
+        .illustr {
+            padding-top: 20px;
+            padding-bottom: 40px;
+            margin-left: 5%;
+            width: 240px;
+        }
     }
+.ball{
+       border-radius: 29px;
+    background-color: #ee3338;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin: 0px 0px 20px 0px;}

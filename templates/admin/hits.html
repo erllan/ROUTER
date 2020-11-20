@@ -7,7 +7,7 @@
         <ul class="list-group">
             {%for hit in hits%}
 
-            <li class="list-group-item"><a href="{%url 'detailProduct' hit.id%}">{{hit.title}}</a></li>
+            <li class="list-group-item"><a href="{%url 'detailProduct' hit.id%}">{{hit.title}}</a> <div class="text-right"><a  href="{%url 'deleteHit' hit.id%}"><button>&#10060</button></a></div></li>
             {%endfor%}
         </ul>
     </div>
@@ -15,7 +15,7 @@
     <ul class="list-group">
         {%for product in products%}
         {%if product.hit != True%}
-        <li class="list-group-item">{{product.title}}<a href="{%url 'addToHit' product.id %}">сделать хитом </a></li>
+        <li class="list-group-item"><a href="{%url 'detailProduct' product.id%}">{{product.title}}</a><div class="text-right"><a  href="{%url 'addToHit' product.id %}"><button>&#9989;</button> </a></div></li>
 
         {%endif%}
         {%endfor%}

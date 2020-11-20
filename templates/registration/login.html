@@ -5,18 +5,40 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&family=Montserrat:wght@400;500&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-<form action="{%url 'login'%}" method="post">
-    {%csrf_token%}
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name='password' placeholder="password">
-    <input type="submit">
-</form>
+<nav class="navbar navbar-dark bg-primary">
+  <h1 style="color:white">Admin</h1>
+</nav>
+<div class="container-fluid">
+<div class="container-fluid">
+<form action="{%url 'login'%}" method="post">{%csrf_token%}
+  <div class="form-group">
+    <label for="exampleInputEmail1">Name</label>
+    <input type="text" name="username"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter NickName">
+
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" name='password' class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
 {%if error%}
-{{error}}
+<small id="emailHelp" class="form-text text-muted" ><div style="color:red" >{{error}}</div></small>
 {%endif%}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</div>
+
 
 </body>
 </html>
