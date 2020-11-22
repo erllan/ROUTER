@@ -223,7 +223,7 @@ class AddDeleteAlbum(View):
         product = Product.objects.get(id=id_object)
         if request.FILES['album']:
             myfile = request.FILES['album']
-            fs = FileSystemStorage(location='public_html/media/album')
+            fs = FileSystemStorage(location='media/album')
             filename = fs.save(myfile.name, myfile)
             Album.objects.create(photo='/album/' + filename, to_product=product)
             return HttpResponseRedirect(reverse('detailProduct', args=(product.id,)))
